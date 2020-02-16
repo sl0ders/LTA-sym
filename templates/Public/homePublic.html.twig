@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+{% block title %}Page d'accueil-Les terres d'aris{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="grid wow fadeInUp">
+            <div class="card mb-5 pb-0" style="visibility: visible; animation-name: fadeInUp;">
+                <a href="" class="text-center">
+                    <img class="card-img-top" src="{{ asset('images/concombre.png') }}" alt="">
+                </a>
+                <div class="card-body">
+                    <h4 class="card-title">Concombre</h4>
+                    <p class="card-text">Utilisez ces concombres issus de l'agriculture bio...</p>
+                    <a href="#">
+                        <button>En savoir plus</button>
+                    </a>
+                    <form action="" class="mt-2 form-group">
+                        <label>
+                            <input class="form-control" style="width: 60px" type="number" width="20%">
+                        </label>
+                        <button class="btn btn-primary">
+                            <img class="m-auto" src="{{ asset('images/svg/caddie.svg') }}" width="20" alt="">
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+

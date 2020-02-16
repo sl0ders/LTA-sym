@@ -1,0 +1,116 @@
+@charset "UTF-8";
+@import url(~bootstrap);
+@font-face {
+  font-family: "Fantasy W01 Regular1504285";
+  src: url("/font/d59cb9bb-e302-4d03-a28c-f5d7fc170d1d.eot?#iefix");
+  src: url("/font/d59cb9bb-e302-4d03-a28c-f5d7fc170d1d.eot?#iefix") format("eot"), url("/font/67ba6174-8662-4877-8c71-6938b098652b.woff2") format("woff2"), url("/font/66f396d7-a2f5-48ff-b666-529e61be0af8.woff") format("woff"), url("/font/452560bc-7196-4154-9b64-b9bb79494473.ttf") format("truetype");
+}
+body {
+  background: url("../../public/images/background.jpg");
+  font-family: "Fantasy W01 Regular1504285", sans-serif;
+  box-sizing: border-box;
+  font-weight: 600;
+}
+
+header nav {
+  background-color: rgba(255, 255, 255, 0.6);
+  height: 30vh;
+}
+@media screen and (max-width: 930px) {
+  header nav {
+    height: 50vh;
+  }
+}
+header h1 {
+  margin: auto;
+  font-size: 5rem;
+  font-weight: 900;
+}
+@media screen and (max-width: 544px) {
+  header h1 {
+    font-size: 3rem;
+  }
+}
+@media screen and (max-width: 544px) {
+  header img {
+    width: 50%;
+  }
+}
+@media screen and (max-width: 930px) {
+  header ul, header h1 {
+    text-align: center;
+    margin: auto;
+  }
+}
+header li {
+  font-size: 1.8rem;
+}
+header li a {
+  color: black;
+}
+header li a:hover {
+  text-decoration: none;
+}
+
+.grid {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 16px;
+}
+
+main .container {
+  margin-top: 10vh;
+}
+main .card {
+  width: 100%;
+  height: 100%;
+}
+main .card .card-body {
+  text-align: center;
+}
+main .card-img-top {
+  margin-top: -1.25rem !important;
+  width: 90%;
+  background: url("../../public/images/Arrière-plan-copie.png") no-repeat center center;
+  background-size: cover;
+}
+
+button::before {
+  height: 30px;
+}
+button::before span {
+  position: absolute;
+  /* postulat de départ */
+  top: 50%;
+  left: 50%;
+  /* à 50%/50% du parent référent */
+  transform: translate(-50%, -50%);
+  /* décalage de 50% de sa propre taille */
+}
+button::before img {
+  position: absolute;
+  /* postulat de départ */
+  top: 50%;
+  left: 50%;
+  /* à 50%/50% du parent référent */
+  transform: translate(-50%, -50%);
+  /* décalage de 50% de sa propre taille */
+}
+
+.signIn button {
+  width: 6rem;
+}
+
+.grid {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 16px;
+}
+.grid img {
+  width: 100%;
+  height: 100%;
+}
+
+/*# sourceMappingURL=app.css.map */

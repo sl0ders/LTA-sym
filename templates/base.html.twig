@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="{{ asset('MDBootstrap/css/mdb.min.css') }}">
+        {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
+    </head>
+    <body>
+    <header>
+        {% block header %}
+            {% include 'Layout/_header.html.twig' %}
+        {% endblock %}
+    </header>
+    <main>
+        {% block body %}{% endblock %}
+    </main>
+    <footer>
+        {% block footer %}{% include 'Layout/_footer.html.twig' %}{% endblock %}
+    </footer>
+    <script src="{{ asset('MDBootstrap/js/jquery-3.4.0.min.js') }}"></script>
+    <script src="{{ asset('MDBootstrap/js/mdb.min.js') }}"></script>
+    {% block javascripts %}{{ encore_entry_script_tags('app') }}{% endblock %}
+    </body>
+</html>

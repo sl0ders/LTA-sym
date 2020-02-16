@@ -1,0 +1,18 @@
+{{ form_start(form, {"attr" : {"class": "m-auto"}}) }}
+    {{ form_row(form.name, {"attr" : {"class": "form-control mb-2"}}) }}
+    {{ form_row(form.firstname, {"attr" : {"class": "form-control mb-2"}}) }}
+    {{ form_row(form.email, {"attr" : {"class": "form-control mb-2"}}) }}
+    {{ form_row(form.Password, {"attr" : {"class": "form-control mb-2"}}) }}
+    {{ form_row(form.confirmPassword, {"attr" : {"class": "form-control mb-2"}}) }}
+<h3>Choisissez votre avatar</h3>
+<div class="avatar mb-5">
+    {% for avatar in avatars %}
+        <input type="radio" class="form-check-input mb-5" id="avatar{{ avatar.id }}"
+               value="{{ avatar.id }}" name="imgProfil">
+        <label class="form-check-label" for="avatar{{ avatar.id }}">
+            <img class="mb-5" src="images/{{ avatar.name }}" alt="{{ avatar.name }}" width="70" height="70">
+        </label>
+    {% endfor %}
+</div>
+    <button class="btn btn-success w-75" type="submit">Créer le profile</button>
+{{ form_end(form) }}
