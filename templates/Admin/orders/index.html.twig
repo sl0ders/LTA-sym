@@ -1,16 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Orders index{% endblock %}
+{% block title %}Index de gestion des commandes{% endblock %}
 
 {% block body %}
-    <h1>Orders index</h1>
+    <h1>Index de gestion des commandes</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Quantity</th>
-                <th>Created_at</th>
+                <th>Quantitée</th>
+                <th>Crée le ...</th>
                 <th>Total</th>
                 <th>Validation</th>
                 <th>NCmd</th>
@@ -22,22 +22,22 @@
             <tr>
                 <td>{{ order.id }}</td>
                 <td>{{ order.quantity }}</td>
-                <td>{{ order.createdAt ? order.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ order.createdAt ? order.createdAt|date('d/m/Y H:i:s') : '' }}</td>
                 <td>{{ order.total }}</td>
                 <td>{{ order.validation }}</td>
                 <td>{{ order.nCmd }}</td>
                 <td>
-                    <a href="{{ path('admin_orders_show', {'id': order.id}) }}">show</a>
-                    <a href="{{ path('admin_orders_edit', {'id': order.id}) }}">edit</a>
+                    <a href="{{ path('admin_orders_show', {'id': order.id}) }}"><img src="{{ asset('images/detail.png') }}" alt="detail"></a>
+                    <a href="{{ path('admin_orders_edit', {'id': order.id}) }}"><img src="{{ asset('images/svg/edition.png') }}" alt="edition"></a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="7">Aucun élément enregistré</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('admin_orders_new') }}">Create new</a>
+    <a href="{{ path('admin_orders_new') }}"><img src="{{ asset('images/svg/create.png') }}" alt="Création d'un élément"></a>
 {% endblock %}

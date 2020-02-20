@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New User{% endblock %}
+{% block title %}Création d'un utilisateur{% endblock %}
 
 {% block body %}
-    <h1>Create new User</h1>
+    <h1><img src="{{ asset('images/svg/create.png') }}" alt="Création d'un élément"> Utilisateur</h1>
 
     {{ include('Admin/user/_form.html.twig') }}
 
-    <a href="{{ path('admin_user_index') }}">back to list</a>
+    <a href="{{ path('admin_user_index') }}"><img src="{{ asset('images/svg/return.png') }}" alt="">Retouner au menu précédent</a>
 {% endblock %}

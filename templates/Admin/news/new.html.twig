@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New News{% endblock %}
+{% block title %}Création d'une nouvelle news{% endblock %}
 
 {% block body %}
-    <h1>Create new News</h1>
+    <h1><img src="{{ asset('images/svg/create.png') }}" alt="Création d'un élément"> News</h1>
 
     {{ include('Admin/news/_form.html.twig') }}
 
-    <a href="{{ path('admin_news_index') }}">back to list</a>
+    <a href="{{ path('admin_news_index') }}"><img src="{{ asset('images/svg/return.png') }}" alt="">Retouner au menu précédent</a>
 {% endblock %}

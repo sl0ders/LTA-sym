@@ -1,18 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}News index{% endblock %}
+{% block title %}Index de gestion des news{% endblock %}
 
 {% block body %}
-    <h1>News index</h1>
+    <h1>Index de gestion des news</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Title</th>
-                <th>Content</th>
+                <th>Titre</th>
+                <th>Contenu</th>
                 <th>Image</th>
-                <th>Created_at</th>
+                <th>Crée le ...</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -23,19 +23,19 @@
                 <td>{{ news.Title }}</td>
                 <td>{{ news.content }}</td>
                 <td>{{ news.image }}</td>
-                <td>{{ news.createdAt ? news.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ news.createdAt ? news.createdAt|date('d/m/Y H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('admin_news_show', {'id': news.id}) }}">show</a>
-                    <a href="{{ path('admin_news_edit', {'id': news.id}) }}">edit</a>
+                    <a href="{{ path('admin_news_show', {'id': news.id}) }}"><img src="{{ asset('images/detail.png') }}" alt="détail"></a>
+                    <a href="{{ path('admin_news_edit', {'id': news.id}) }}"><img src="{{ asset('images/svg/edition.png') }}" alt="edition"></a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="6">Aucun élément enregistré</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('admin_news_new') }}">Create new</a>
+    <a href="{{ path('admin_news_new') }}"><img src="{{ asset('images/svg/create.png') }}" alt="Création d'un élément"></a>
 {% endblock %}

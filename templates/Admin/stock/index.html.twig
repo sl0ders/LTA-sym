@@ -1,16 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Stock index{% endblock %}
+{% block title %}Index de gestion des stocks{% endblock %}
 
 {% block body %}
-    <h1>Stock index</h1>
+    <h1>Index de gestion des stocks</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Quantity</th>
-                <th>Maj_at</th>
+                <th>Quantité</th>
+                <th>Mise a jour le ...</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -19,19 +19,19 @@
             <tr>
                 <td>{{ stock.id }}</td>
                 <td>{{ stock.quantity }}</td>
-                <td>{{ stock.majAt ? stock.majAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ stock.majAt ? stock.majAt|date('d/m/Y H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('admin_stock_show', {'id': stock.id}) }}">show</a>
-                    <a href="{{ path('admin_stock_edit', {'id': stock.id}) }}">edit</a>
+                    <a href="{{ path('admin_stock_show', {'id': stock.id}) }}"><img src="{{ asset('images/detail.png') }}" alt="detail"></a>
+                    <a href="{{ path('admin_stock_edit', {'id': stock.id}) }}"><img src="{{ asset('images/svg/edition.png') }}" alt="edition"></a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">Aucun élément enregistré</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('admin_stock_new') }}">Create new</a>
+    <a href="{{ path('admin_stock_new') }}"><img src="{{ asset('images/svg/create.png') }}" alt="Création d'un élément"></a>
 {% endblock %}
