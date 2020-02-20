@@ -3,26 +3,51 @@
 {% block body %}
     <div class="container">
         <div class="grid wow fadeInUp">
-            <div class="card mb-5 pb-0" style="visibility: visible; animation-name: fadeInUp;">
-                <a href="" class="text-center">
-                    <img class="card-img-top" src="{{ asset('images/concombre.png') }}" alt="">
-                </a>
-                <div class="card-body">
-                    <h4 class="card-title">Concombre</h4>
-                    <p class="card-text">Utilisez ces concombres issus de l'agriculture bio...</p>
-                    <a href="#">
-                        <button>En savoir plus</button>
+            {% for product in products %}
+                <div class="card">
+                    <a href="{{ path('public_product_show', {'id' : product.id}) }}"
+                       class="text-center m-auto card-img-top">
+                        <img class="img_png" src="/{{ product.imgPNG }}" alt="{{ product.name }} small">
                     </a>
-                    <form action="" class="mt-2 form-group">
-                        <label>
-                            <input class="form-control" style="width: 60px" type="number" width="20%">
-                        </label>
-                        <button class="btn btn-primary">
-                            <img class="m-auto" src="{{ asset('images/svg/caddie.svg') }}" width="20" alt="">
-                        </button>
-                    </form>
+                    <div class="card-body">
+                        <h4 class="card-title">{{ product.name |capitalize }}</h4>
+                        <p class="card-text font-weight-bold">{{ product.description |slice(0, 100) }}...</p>
+                        <a href="{{ path('public_product_show', {'id' : product.id}) }}">
+                            <button>En savoir plus</button>
+                        </a>
+                        {% if product.stock.quantity < 1 %}
+                            <div class="text-center mt-2">
+                                <img src="{{ asset('images/svg/danger.svg') }}" alt="">
+                                <p>Ce produit est malheureusement en rupture de stock</p>
+                            </div>
+                        {% elseif product.stock.quantity < 30 %}
+                            <div class="text-center mt-2">
+                                <img src="{{ asset('images/svg/warning.svg') }}" alt="">
+                                <p>Ce produit est bientot en rupture de stock dêpechez vous!</p>
+                            </div>
+                        {% endif %}
+                        <div class="font-weight-bold">{{ product.price }}€ / {{ product.unity }}</div>
+                        {% if product.stock.quantity > 0 %}
+                        <form action="{{ path('cart_add', {'id': product.id }) }}" class="mt-2  cartAdd" method="post">
+                            <div class="def-number-input number-input safari_only m-auto">
+                                <button type="button"
+                                        onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                                        class="minus"></button>
+                                <input id="plus-moins" class="quantity" min="0" name="quantity" value="1"
+                                       type="number">
+                                <button type="button"
+                                        onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                        class="plus">
+                                </button>
+                            </div>
+                            <button class="btn btn-primary">
+                                <img class="m-auto" src="{{ asset('images/svg/caddie.svg') }}" width="20" alt="">
+                            </button>
+                            {% endif %}
+                        </form>
+                    </div>
                 </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

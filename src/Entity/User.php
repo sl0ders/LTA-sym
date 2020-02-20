@@ -2,11 +2,15 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * @UniqueEntity("email", message="Cet adresse email existe deja veuillez en choisir une autre")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
 class User implements UserInterface
@@ -20,6 +24,8 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Email(message="Format d'adresse email incorect")
+     * @Assert\NotBlank(message="Veuillez remplir cette partie afin de poursuivre votre enregistrement")
      */
     private $email;
 
@@ -31,21 +37,26 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="Veuillez remplir cette partie afin de poursuivre votre enregistrement")
+     * @Assert\Length(min="6", minMessage="Votre mot de passe doit faire au moins 6 caractères !")
      */
     private $password;
 
     /**
      * @Assert\EqualTo(propertyPath="password",message="le mot de passe doit etre identique a sa confirmation")
+     *
      */
     public $confirmPassword;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez remplir cette partie afin de poursuivre votre enregistrement")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez remplir cette partie afin de poursuivre votre enregistrement")
      */
     private $firstname;
 
@@ -53,6 +64,21 @@ class User implements UserInterface
      * @ORM\ManyToOne(targetEntity="App\Entity\Avatar", inversedBy="users")
      */
     private $Avatar;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Orders", mappedBy="users")
+     */
+    private $orders;
+
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    private $active;
+
+    public function __construct()
+    {
+        $this->orders = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -168,4 +194,46 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return Collection|Orders[]
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Orders $order): self
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders[] = $order;
+            $order->setUsers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Orders $order): self
+    {
+        if ($this->orders->contains($order)) {
+            $this->orders->removeElement($order);
+            // set the owning side to null (unless already changed)
+            if ($order->getUsers() === $this) {
+                $order->setUsers(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getActive(): ?int
+    {
+        return $this->active;
+    }
+
+    public function setActive(int $active): self
+    {
+        $this->active = $active;
+
+        return $this;
+    }
 }

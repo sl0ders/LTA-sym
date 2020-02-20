@@ -43,14 +43,31 @@ class Product
      */
     private $imgPNG;
 
+
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Order", mappedBy="products")
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Unity;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Stock", mappedBy="product", cascade={"persist", "remove"})
+     */
+    private $stock;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Orders", mappedBy="products")
      */
     private $orders;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\News", mappedBy="product")
+     */
+    private $news;
 
     public function __construct()
     {
         $this->orders = new ArrayCollection();
+        $this->news = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -118,29 +135,93 @@ class Product
         return $this;
     }
 
+
+    public function getUnity(): ?string
+    {
+        return $this->Unity;
+    }
+
+    public function setUnity(string $Unity): self
+    {
+        $this->Unity = $Unity;
+
+        return $this;
+    }
+
+    public function getStock(): ?Stock
+    {
+        return $this->stock;
+    }
+
+    public function setStock(Stock $stock): self
+    {
+        $this->stock = $stock;
+
+        // set the owning side of the relation if necessary
+        if ($stock->getProduct() !== $this) {
+            $stock->setProduct($this);
+        }
+
+        return $this;
+    }
+
     /**
-     * @return Collection|Order[]
+     * @return Collection|Orders[]
      */
     public function getOrders(): Collection
     {
         return $this->orders;
     }
 
-    public function addOrder(Order $order): self
+    public function addOrder(Orders $order): self
     {
         if (!$this->orders->contains($order)) {
             $this->orders[] = $order;
-            $order->addProduct($this);
+            $order->setProducts($this);
         }
 
         return $this;
     }
 
-    public function removeOrder(Order $order): self
+    public function removeOrder(Orders $order): self
     {
         if ($this->orders->contains($order)) {
             $this->orders->removeElement($order);
-            $order->removeProduct($this);
+            // set the owning side to null (unless already changed)
+            if ($order->getProducts() === $this) {
+                $order->setProducts(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|News[]
+     */
+    public function getNews(): Collection
+    {
+        return $this->news;
+    }
+
+    public function addNews(News $news): self
+    {
+        if (!$this->news->contains($news)) {
+            $this->news[] = $news;
+            $news->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNews(News $news): self
+    {
+        if ($this->news->contains($news)) {
+            $this->news->removeElement($news);
+            // set the owning side to null (unless already changed)
+            if ($news->getProduct() === $this) {
+                $news->setProduct(null);
+            }
         }
 
         return $this;

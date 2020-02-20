@@ -1,25 +1,50 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="stylesheet" href="{{ asset('MDBootstrap/css/mdb.min.css') }}">
-        {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
-    </head>
-    <body>
-    <header>
-        {% block header %}
-            {% include 'Layout/_header.html.twig' %}
-        {% endblock %}
-    </header>
-    <main>
-        {% block body %}{% endblock %}
-    </main>
-    <footer>
-        {% block footer %}{% include 'Layout/_footer.html.twig' %}{% endblock %}
-    </footer>
-    <script src="{{ asset('MDBootstrap/js/jquery-3.4.0.min.js') }}"></script>
-    <script src="{{ asset('MDBootstrap/js/mdb.min.js') }}"></script>
-    {% block javascripts %}{{ encore_entry_script_tags('app') }}{% endblock %}
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon" href="{{ asset('images/logo.png') }}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
+          integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="{{ asset('MDBootstrap/css/mdb.min.css') }}">
+    {{ encore_entry_link_tags('app') }}
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+<header>
+    {% block header %}
+        {% include 'Layout/_header.html.twig' %}
+    {% endblock %}
+</header>
+<div class="container-fluid">
+    <div class="row">
+        <aside class="col-md-2">
+            {% block aside_left %}
+                {{ render(controller('App\\Controller\\LayoutBundleController::leftMenuAction')) }}
+            {% endblock %}
+        </aside>
+
+        <main class="col-md-8">
+            {% block body %}{% endblock %}
+        </main>
+
+        <aside class="col-md-2">
+            {% block aside_right %}
+                {{ render(controller('App\\Controller\\LayoutBundleController::rightMenuAction')) }}
+            {% endblock %}
+        </aside>
+    </div>
+</div>
+<footer class="page-footer font-small rgba-blue-grey-strong pt-4 mt-5">
+    {% block footer %}{% include 'Layout/_footer.html.twig' %}{% endblock %}
+</footer>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous">
+</script>
+<script src="{{ asset('MDBootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('MDBootstrap/js/mdb.min.js') }}"></script>
+{% block javascripts %} {{ encore_entry_script_tags('app') }}{% endblock %}
+</body>
 </html>

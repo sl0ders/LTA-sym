@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 font-weight-bold  user_show m-auto peach-gradient-rgba">
+                <div class="text-center text-white p-3">
+                    <h1>Vos informations</h1>
+                </div>
+                <div class="responsive-table-line" style="margin:0 auto;max-width:1700px;">
+                    <table class="table table-bordered text-center table-condensed table-body-center">
+                        <tbody>
+                        <tr>
+                            <th scope="row" class="font-weight-bolder">Nom</th>
+                            <td>{{ app.user.name }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="font-weight-bolder">Prenom</th>
+                            <td>{{ app.user.firstname }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="font-weight-bolder">Pseudo</th>
+                            <td>{{ app.user.username }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="font-weight-bolder">Email</th>
+                            <td>{{ app.user.email }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="font-weight-bolder">Status</th>
+                            <td>
+                                {% if app.user.active == 0 %}
+                                    Visiteur
+                                {% elseif app.user.active == 1 %}
+                                    Utilisateur confirmé
+                                {% elseif app.user.active == 2 %}
+                                    Administrateur
+                                {% elseif app.user.active == 3 %}
+                                    Utilisateur bannie
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="font-weight-bolder">Votre avatar</th>
+                            <td><img src="/images/{{ app.user.avatar }}" alt="imgProfile"></td>
+                        </tr>
+                        {% if app.user.active == 1 or  app.user.active == 2 %}
+                            <tr>
+                                <td>
+                                    <a href="{{ path('public_edit_user', {'id' : app.user.id}) }}">
+                                        <button class="btn-success btn-sm">Modifier mon compte</button>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+{% endblock %}

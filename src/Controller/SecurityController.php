@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\SignInType;
+use App\Form\UserType;
 use App\Repository\AvatarRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -14,6 +15,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
+/**
+ * Class SecurityController
+ * @package App\Controller
+ * @Route("/user")
+ */
 class SecurityController extends AbstractController
 {
     /**
@@ -24,6 +30,15 @@ class SecurityController extends AbstractController
     public function __construct(EntityManagerInterface $manager)
     {
         $this->manager = $manager;
+    }
+
+    /**
+     * @Route("/", name="public_user_show")
+     * @return Response
+     */
+    public function show()
+    {
+        return $this->render('Public/user/show.html.twig');
     }
 
     /**
@@ -53,7 +68,6 @@ class SecurityController extends AbstractController
     {
         $avatars = $repository->findAll();
         $user = new User;
-
         $user->getAvatar();
         $form = $this->createForm(SignInType::class, $user);
         $form->handleRequest($request);
@@ -79,5 +93,37 @@ class SecurityController extends AbstractController
     public function logout()
     {
         throw new Exception('This method can be blank - it will be intercepted by the logout key on your firewall');
+    }
+
+    /**
+     * @Route("/edit/{id}", name="public_edit_user", methods={"GET","POST"})
+     * @param $user
+     * @param Request $request
+     * @param AvatarRepository $repository
+     * @return Response
+     */
+    public function edit(Request $request, User $user, AvatarRepository $repository): Response
+    {
+        $avatars = $repository->findAll();
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if(isset($_POST['imgProfil'])){
+                $avatar = $repository->findOneBy(['id' => $_POST["imgProfil"]]);
+                $user->setAvatar($avatar);
+            }
+            $user->setAvatar($user->getAvatar());
+            $user->setPassword($user->getPassword());
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+            return $this->redirectToRoute('public_user_show');
+        }
+
+        return $this->render('Public/user/edit.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+            'avatars' => $avatars
+        ]);
     }
 }

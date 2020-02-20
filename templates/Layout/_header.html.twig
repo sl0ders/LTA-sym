@@ -2,9 +2,48 @@
     <a class="navbar-brand" href="{{ path('home') }}">
         <img src="{{ asset('images/logo.png') }}" alt="logo - Les terres d'aris">
     </a>
-    <h1>Les terres d'aris</h1>
+    <p class="speach text-center">
+        Les terres d'Aris <br>Mangez <span> BON </span>mangez
+        <span> BIO</span> !!
+    </p>
+
     <ul class="my-2 mx-5 my-lg-0 flex-wrap d-flex list-unstyled">
-        <li class="mr-4"><a href="{{ path('app_signin') }}">S'inscrire</a></li>
-        <li class="ml-2"><a href="{{ path('app_login') }}">Se connecter</a></li>
+        {% if not app.user %}
+            <li class="mr-4"><a href="{{ path('app_signin') }}">S'inscrire</a></li>
+            <li class="ml-2"><a href="{{ path('app_login') }}">Se connecter</a></li>
+        {% elseif  is_granted('ROLE_USER') %}
+            <div class="avatar dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55"
+                   data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    <img src="/images/{{ app.user.avatar.name }}" class="rounded-circle z-depth-0"
+                         width="90" height="90" alt="avatar image">
+                    {% if  is_granted('ROLE_ADMIN') %}
+                    <img src="{{ asset('images/overlays/star.png') }}" alt="etoile admin" width="60">
+                    {% endif %}
+                </a>
+                {% if is_granted('ROLE_ADMIN') %}
+                <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+                     aria-labelledby="navbarDropdownMenuLink-55">
+                    <a class="dropdown-item" href="index.php?p=Admin.Users.index">Gestion des
+                        utilisateurs</a>
+                    <a class="dropdown-item" href="index.php?p=Admin.Stocks.index">Gestion des
+                        stocks</a>
+                    <a class="dropdown-item" href="index.php?p=Admin.Products.index">Gestion des
+                        produits</a>
+                    <a class="dropdown-item" href="index.php?p=Admin.orders.index">Gestion des
+                        commandes</a>
+                    <a class="dropdown-item" href="index.php?p=Admin.contact.index">Gestion des
+                        contacts</a>
+                    <a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a>
+                </div>
+                {% endif %}
+                <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+                     aria-labelledby="navbarDropdownMenuLink-55">
+                    <a class="dropdown-item" href="{{ path('public_user_show') }}">Mon compte</a>
+                    <a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a>
+                </div>
+            </div>
+        {% endif %}
     </ul>
 </nav>

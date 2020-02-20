@@ -1,0 +1,16 @@
+<div class="mt-md-5">
+    <img src="{{ asset('images/svg/news_logo.png') }}" alt="">
+    {% if news | length > 0 %}
+        <div class="border">
+            {% for new in news %}
+                <div class="card">
+                    <img class="card-img-top" src="{{ new.image }}" alt="{{ new.title }}">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ new.title }} <span>{{ new.createdAt }}</span></h4>
+                        <p class="card-text">{{ new.content }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>

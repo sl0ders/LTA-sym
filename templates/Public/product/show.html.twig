@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ product.name |capitalize }}{% endblock %}
+
+{% block body %}
+    <div class="text-center m-5">
+
+    </div>
+    <div class="text-center row">
+        <div class="col-md-6">
+            <img class="img_show" src="/../../{{ product.imgJPG }}" alt="">
+        </div>
+        <div class="col-md-6">
+            <h1 class="font-weight-bold">
+                {{ product.name |capitalize }}
+            </h1>
+            <h2>Description du produit</h2>
+            <p class="mt-sm-4 mt-4">{{ product.description }}</p>
+            <br>
+            <form action="{{ path('cart_add', {'id': product.id }) }}" class="mt-2  cartAdd" method="post">
+                <div class="def-number-input number-input safari_only m-auto">
+                    <button type="button"
+                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                            class="minus"></button>
+                    <input id="plus-moins" class="quantity" min="0" name="quantity" value="1"
+                           type="number">
+                    <button type="button"
+                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                            class="plus"></button>
+                </div>
+                <button class="btn btn-primary">
+                    <img class="m-auto" src="{{ asset('images/svg/caddie.svg') }}" width="20" alt="">
+                </button>
+            </form>
+            Prix actuel: {{ product.price}}€/l'unité
+            <br>
+        </div>
+    </div>
+
+{% endblock %}

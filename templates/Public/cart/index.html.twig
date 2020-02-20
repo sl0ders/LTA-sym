@@ -1,0 +1,83 @@
+{% extends "base.html.twig" %}
+{% block title %}{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 font-weight-bold m-auto">
+                <div class="text-center text-white p-3 blue-gradient-rgba">
+                    <h1>Votre panier</h1>
+                </div>
+                <div class="responsive-table-line" style="margin:0 auto;max-width:1700px;">
+                    <table class="table table-bordered rgba-light-blue-strong text-center table-condensed table-body-center">
+                        {% if cartProducts| length > 0 %}
+                        <thead>
+                        <tr>
+                            <th>Produits</th>
+                            <th>Prix</th>
+                            <th>Quantité</th>
+                            <th>Total</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for product in cartProducts %}
+                            <tr>
+                                <td><span>Produit :</span>{{ product.product.name }}</td>
+                                <td><span>Prix :</span>{{ product.product.price }}</td>
+                                <td><span>Quantité :</span>{{ product.quantity }}</td>
+                                <td><span>Total :</span>{{ product.product.price * product.quantity }}</td>
+                                <td>
+                                    <form action="{{ path('cart_remove', {'id' : product.product.id}) }}" class="d-flex m-auto w-75" method="post">
+                                        <div class="def-number-input number-input safari_only m-auto">
+                                            <button type="button"
+                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                                                    class="minus">
+                                            </button>
+                                            <input id="plus-moins" class="quantity" min="0" name="quantity"
+                                                   value="{{ product.quantity }}"
+                                                   type="number">
+                                            <button type="button"
+                                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                                    class="plus">
+                                            </button>
+                                        </div>
+                                            <button type="submit" class="btn btn-refresh btn-warning">
+                                                <img src="{{ asset('images/svg/refresh.png') }}" width="50%" alt="">
+                                            </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="3" class="text-right">Total :</td>
+                            {% if total > 0 %}
+                                <td>{{ total }}</td>
+                            {% endif %}
+                            <td>
+                                {% if app.user %}
+                                    <a href="{{ path('cart_valid') }}">
+                                        <button class="text-white font-weight-bold btn btn-sm btn-light-blue">
+                                            Valider le pagner
+                                        </button>
+                                    </a>
+                                {% else %}
+                                    <img src="{{ asset('images/svg/warning.svg') }}" alt="">
+                                    <br>
+                                    <a href="{{ path('app_login') }}">
+                                        <button class="btn btn-sm btn-primary">Se connecter pour valider !</button>
+                                    </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                {% else %}
+                    <p>Surprise, c'est vide !</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
