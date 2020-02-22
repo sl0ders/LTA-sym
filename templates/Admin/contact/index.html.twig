@@ -30,7 +30,6 @@
                 <td>{{ contact.createdAt ? contact.createdAt|date('d/m/Y H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('admin_contact_show', {'id': contact.id}) }}"><img src="{{ asset('images/detail.png') }}" alt="detail"></a>
-                    <a href="{{ path('admin_contact_edit', {'id': contact.id}) }}"><img src="{{ asset('images/svg/edition.png') }}" alt="edition"></a>
                 </td>
             </tr>
         {% else %}
@@ -40,6 +39,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('admin_contact_new') }}"><img src="{{ asset('images/svg/create.png') }}" alt="Création d'un élément"></a>
-{% endblock %}
+>{% endblock %}

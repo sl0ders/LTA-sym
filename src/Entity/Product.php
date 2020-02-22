@@ -2,12 +2,16 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
+ * @Vich\Uploadable
  */
 class Product
 {
@@ -34,15 +38,11 @@ class Product
     private $price;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @Assert\All({
+     *   @Assert\Image(mimeTypes="image/jpeg")
+     * })
      */
-    private $imgJPG;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $imgPNG;
-
+    private $pictureFiles;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -55,6 +55,11 @@ class Product
     private $stock;
 
     /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updated_at;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Orders", mappedBy="products")
      */
     private $orders;
@@ -64,10 +69,16 @@ class Product
      */
     private $news;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Picture", mappedBy="product", orphanRemoval=true, cascade={"persist"})
+     */
+    private $pictures;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
         $this->news = new ArrayCollection();
+        $this->pictures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -107,30 +118,6 @@ class Product
     public function setPrice(int $price): self
     {
         $this->price = $price;
-
-        return $this;
-    }
-
-    public function getImgJPG(): ?string
-    {
-        return $this->imgJPG;
-    }
-
-    public function setImgJPG(string $imgJPG): self
-    {
-        $this->imgJPG = $imgJPG;
-
-        return $this;
-    }
-
-    public function getImgPNG(): ?string
-    {
-        return $this->imgPNG;
-    }
-
-    public function setImgPNG(string $imgPNG): self
-    {
-        $this->imgPNG = $imgPNG;
 
         return $this;
     }
@@ -223,6 +210,83 @@ class Product
                 $news->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Picture[]
+     */
+    public function getPictures(): Collection
+    {
+        return $this->pictures;
+    }
+
+    /**
+     *
+     */
+    public function getPicture(): ?Picture
+    {
+        if ($this->pictures->isEmpty()) {
+            return null;
+        }
+        return $this->pictures->first();
+    }
+
+    public function addPicture(Picture $picture): self
+    {
+        if (!$this->pictures->contains($picture)) {
+            $this->pictures[] = $picture;
+            $picture->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removePicture(Picture $picture): self
+    {
+        if ($this->pictures->contains($picture)) {
+            $this->pictures->removeElement($picture);
+            // set the owning side to null (unless already changed)
+            if ($picture->getProduct() === $this) {
+                $picture->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPictureFiles()
+    {
+        return $this->pictureFiles;
+    }
+
+    /**
+     * @param mixed $pictureFiles
+     * @return Product
+     */
+    public function setPictureFiles($pictureFiles): self
+    {
+        foreach ($pictureFiles as $pictureFile) {
+            $picture = new Picture();
+            $picture->setImageFile($pictureFile);
+            $this->addPicture($picture);
+        }
+        $this->pictureFiles = $pictureFiles;
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
 
         return $this;
     }

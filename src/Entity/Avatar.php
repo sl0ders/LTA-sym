@@ -24,7 +24,7 @@ class Avatar
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="Avatar")
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="avatar")
      */
     private $users;
 
@@ -48,6 +48,11 @@ class Avatar
         $this->name = $name;
 
         return $this;
+    }
+
+    public function __toString():string
+    {
+       return $this->name;
     }
 
     /**
@@ -79,9 +84,5 @@ class Avatar
         }
 
         return $this;
-    }
-    public function __toString():string
-    {
-       return $this->name;
     }
 }

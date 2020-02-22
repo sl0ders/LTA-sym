@@ -1,6 +1,8 @@
-<div class="cart_logo ml-md-5">
-    <a href="{{ path('cart_index') }}" class=" d-flex">
-        <img src="{{ asset('images/order_Cart.png') }}" alt="">
-        <div class="nb-cart">{{ cartTotal }}€</div>
-    </a>
-</div>
+{% if not is_granted('ROLE_ADMIN') %}
+    <div class="cart_logo ml-md-5">
+        <a href="{{ path('cart_index') }}" class=" d-flex">
+            <img src="{{ asset('images/order_Cart.png') }}" alt="">
+            <div class="nb-cart">{{ cartTotal }}€</div>
+        </a>
+    </div>
+{% endif %}

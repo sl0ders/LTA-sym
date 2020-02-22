@@ -40,6 +40,7 @@ class AdminProductController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $product->setUpdatedAt(new \DateTime());
             $entityManager->persist($product);
             $entityManager->flush();
 

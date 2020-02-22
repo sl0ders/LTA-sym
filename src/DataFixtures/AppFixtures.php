@@ -32,6 +32,9 @@ class AppFixtures extends Fixture
         $user->setRoles(["ROLE_ADMIN"]);
         $user->setName("Sommesous");
         $user->setFirstName("Quentin");
+        $user->setUsername("sl0ders");
+        $user->setActive("2");
+        $user->setCreatedAt(new \DateTime());
         $manager->persist($user);
 
         for( $i = 1; $i <= 12; $i++){

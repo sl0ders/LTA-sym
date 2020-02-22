@@ -5,15 +5,14 @@
 {% block body %}
     <h1>Index de gestion des utilisateurs</h1>
 
-    <table class="table">
+<div class="responsive-table-line" style="margin:0 auto;max-width:1700px;">
+    <table class="table table-bordered table-condensed table-body-center">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Adresse email</th>
-                <th>Roles</th>
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Active</th>
+                <th>Email</th>
+                <th>Actif</th>
+                <th>Crée le ...</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -22,22 +21,19 @@
             <tr>
                 <td>{{ user.id }}</td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                <td>{{ user.name }}</td>
-                <td>{{ user.firstname }}</td>
                 <td>{{ user.active }}</td>
+                <td>{{ user.createdAt ? user.createdAt|date('d/m/Y H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('admin_user_show', {'id': user.id}) }}"><img src="{{ asset('images/detail.png') }}" alt="detail"></a>
-                    <a href="{{ path('admin_user_edit', {'id': user.id}) }}"><img src="{{ asset('images/svg/edition.png') }}" alt="edition"></a>
+                    <a href="{{ path('admin_user_show', {'id': user.id}) }}"><img src="{{ asset('images/detail.png') }}" alt="détail"></a>
+                    <a href="{{ path('admin_user_edit', {'id': user.id}) }}"><img src="{{ asset('images/svg/edition.png') }}" alt=""></a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">Aucun élément enregistré</td>
+                    <td colspan="11">Aucun élément enregistré</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('admin_user_new') }}"><img src="{{ asset('images/svg/create.png') }}" alt="Création d'un élément"></a>
+</div>
 {% endblock %}

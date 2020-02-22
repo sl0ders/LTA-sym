@@ -17,6 +17,11 @@ body {
   margin: 0 auto;
   padding: 0;
 
+  h1{
+    text-align: center;
+    margin: 20px;
+  }
+
   .btn-success {
     background-color: #AAD07D !important;
     border: none;
@@ -195,7 +200,16 @@ body {
       border-radius: 15px;
     }
 
+    .responsive-table-line{
+      border-radius: 25px;
+      margin:0 auto;max-width:700px;
+    }
+
     table {
+      background:linear-gradient(40deg,rgba(255,216,111,.9),rgba(252,98,98,.9));
+
+      border: none;
+
       span {
         display: none;
       }

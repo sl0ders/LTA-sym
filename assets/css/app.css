@@ -13,6 +13,10 @@ body {
   margin: 0 auto;
   padding: 0;
 }
+body h1 {
+  text-align: center;
+  margin: 20px;
+}
 body .btn-success {
   background-color: #AAD07D !important;
   border: none;
@@ -165,6 +169,15 @@ body main .number-input.number-input input[type=number] {
 body main .user_show {
   border: transparent;
   border-radius: 15px;
+}
+body main .responsive-table-line {
+  border-radius: 25px;
+  margin: 0 auto;
+  max-width: 700px;
+}
+body main table {
+  background: linear-gradient(40deg, rgba(255, 216, 111, 0.9), rgba(252, 98, 98, 0.9));
+  border: none;
 }
 body main table span {
   display: none;

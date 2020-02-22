@@ -41,17 +41,18 @@ class Orders
      */
     private $nCmd;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="orders")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $users;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="orders")
      * @ORM\JoinColumn(nullable=false)
      */
     private $products;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="Orders")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     public function getId(): ?int
     {
@@ -118,18 +119,6 @@ class Orders
         return $this;
     }
 
-    public function getUsers(): ?User
-    {
-        return $this->users;
-    }
-
-    public function setUsers(?User $users): self
-    {
-        $this->users = $users;
-
-        return $this;
-    }
-
     public function getProducts(): ?Product
     {
         return $this->products;
@@ -138,6 +127,18 @@ class Orders
     public function setProducts(?Product $products): self
     {
         $this->products = $products;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

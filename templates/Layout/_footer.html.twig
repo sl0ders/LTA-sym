@@ -1,3 +1,93 @@
-<div class="footer-copyright text-center">© 2020 Copyright:
-    <a href="http://quentin.webagency-shop.fr"> Quentin.webagency-shop.fr</a>
-</div>
+<footer class="menu">
+    <!-- Footer Links -->
+    <div class="display justify-content-start page-footer rgba-green-light font-small" id="footer">
+        <div class="container text-center text-md-left mt-5 pt-5 text-white">
+            <!-- Grid row -->
+            <div class="row mt-3">
+
+                <!-- Grid column -->
+                <div class="col-md-3 col-lg-4 col-xl-3 mb-4">
+
+                    <!-- Content -->
+                    <h6 class="text-uppercase font-weight-bold">Les terres d'Aris</h6>
+                    <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                    <p>Les terres d'Aris sont situées du coté de <a href="https://fr.wikipedia.org/wiki/Canoh%C3%A8s">canohes</a>,
+                        de
+                        <a href="https://fr.wikipedia.org/wiki/Ille-sur-T%C3%AAt">Illes sur Tet</a>, ainsi que <a
+                                href="https://fr.wikipedia.org/wiki/Corb%C3%A8re-les-Cabanes">Corbere les cabanes</a>
+                    </p>
+
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+
+                    <!-- Links -->
+                    <h6 class="text-uppercase font-weight-bold">Nos Produits</h6>
+                    <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                    <p>
+                        <a href="#!">Fruit</a>
+                    </p>
+                    <p>
+                        <a href="#!">legumes</a>
+                    </p>
+                    <p>
+                        <a href="#!">Aromate</a>
+                    </p>
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+
+                    <!-- Links -->
+                    <h6 class="text-uppercase font-weight-bold">Liens pratique</h6>
+                    <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                    <p>
+                        <a href="<?php if ($_SESSION['auth']): ?>index.php?p=profil.index<?php else: ?>index.php?p=users.login <?php endif; ?>">Votre
+                            compte</a>
+                    </p>
+                    <p>
+                        <a href="<?php if ($_SESSION['auth']): ?>index.php?p=users.show<?php else: ?>index.php?p=users.login <?php endif; ?>">Vos
+                            Informations</a>
+                    </p>
+                    <p>
+                        <a href="<?php if ($_SESSION['auth']): ?>index.php?p=order.index<?php else: ?>index.php?p=users.login <?php endif; ?>">Vos
+                            commandes</a>
+                    </p>
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+
+                    <!-- Links -->
+                    <h6 class="text-uppercase font-weight-bold">Contact</h6>
+                    <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                    <p>
+                        <a href="{{ path('public_contact_new') }}"><i class="fas fa-file-signature mr-3"></i>Nous écrire</a>
+                    </p>
+                    <p>
+                        <a href="https://fr.wikipedia.org/wiki/Canoh%C3%A8s"><i class="fas fa-home mr-3"></i>Toulouges
+                            66680</a>
+                    </p>
+                    <p>
+                        <i class="fas fa-envelope mr-3"></i> info@lesterresdaris.fr
+                    </p>
+                </div>
+                <!-- Grid column -->
+
+            </div>
+            <!-- Grid row -->
+
+        </div>
+        <!-- Footer Links -->
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center text-black-50 py-3">© 2019 Copyright:
+            <a href="https://www.Lesterresdaris.fr">lesterresd'aris</a>
+        </div>
+    </div>
+    <!-- Copyright -->
+</footer>

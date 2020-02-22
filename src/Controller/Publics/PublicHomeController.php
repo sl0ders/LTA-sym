@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller\Publics;
+
 use App\Repository\ProductRepository;
 use App\Service\Cart\CartService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,8 +19,18 @@ class PublicHomeController extends AbstractController
     public function index(ProductRepository $productRepository, CartService $cartService)
     {
         $products = $productRepository->findAll();
-        return $this->render('Public/homePublic.html.twig',[
+        return $this->render('Public/homePublic.html.twig', [
             'products' => $products
         ]);
+    }
+
+    public function homeUser()
+    {
+        return $this->render('Public/user/home.html.twig');
+    }
+
+    public function ProfileUser()
+    {
+        return $this->render('Public/user/show.html.twig');
     }
 }

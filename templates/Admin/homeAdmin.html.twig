@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+{% block title %}Accueil de l'administration{% endblock %}
+{% block body %}
+    <div class="admin-home text-center mt-5 font-weight-bold">
+        <h2 class=" font-weight-bold">Administration du site <em class="h5 font-weight-bold">(Page d'accueil)</em></h2>
+        <div class="container-fluid">
+            <div class="row d-flex justify-content-center">
+                <div class="case-stock col-md-3 m-3 border rounded rgba-light-green-light">
+                    <a class="text-decoration-none" href="{{ path('admin_stock_index') }}">
+                        <h3 class="text-center font-weight-bold mt-3">Gestion des stocks</h3>
+                        <img src="{{ asset('images/admin_stock.png') }}" width="60%" alt="Gestion des stock"></a>
+                </div>
+                <div class="case-contact col-md-3 m-3 border rounded rgba-light-blue-light">
+                    <a class="text-decoration-none" href="{{ path('admin_contact_index') }}">
+                        <h3 class="text-center font-weight-bold mt-3">Gestion des contacts</h3>
+                        <img src="{{ asset('images/admin_contact.png') }}" width="60%" alt="Gestion des contacts"></a>
+                </div>
+                <div class="case-product col-md-3 m-3 border rounded">
+                    <a class="text-decoration-none" href="{{ path('admin_product_index') }}">
+                        <h3 class="text-center font-weight-bold mt-3">Gestion des produits</h3>
+                        <img src="{{ asset('images/admin_product.png') }}" width="90%" alt="Gestion des produits"></a>
+                </div>
+                <div class="case-user col-md-3 m-3 border rounded rgba-light-green-light">
+                    <a class="text-decoration-none" href="{{ path('admin_user_index') }}">
+                        <h3 class="text-center font-weight-bold mt-3">Gestion des utilisateurs</h3>
+                        <img src="{{ asset('images/admin_user.png') }}" width="60%" alt="Gestion des utilisateurs"></a>
+                </div>
+                <div class="case-news col-md-3 m-3 border rounded rgba-light-green-light">
+                    <a class="text-decoration-none" href="{{ path('admin_news_index') }}">
+                        <h3 class="text-center font-weight-bold mt-3">Gestion des News</h3>
+                        <img src="{{ asset('images/admin_news.png') }}" width="60%" alt="Gestion des News"></a>
+                </div>
+                <div class="case-comment col-md-3 m-3 border rounded rgba-light-green-light">
+                    <a class="text-decoration-none" href="{{ path('admin_orders_index') }}">
+                        <h3 class="text-center font-weight-bold mt-3">Gestion des commandes</h3>
+                        <img src="{{ asset('images/admin_order.png') }}" width="60%" alt="Gestion des commandes"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+

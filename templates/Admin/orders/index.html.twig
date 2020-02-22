@@ -5,7 +5,8 @@
 {% block body %}
     <h1>Index de gestion des commandes</h1>
 
-    <table class="table">
+<div class="responsive-table-line" style="margin:0 auto;max-width:1700px;">
+    <table class="table table-bordered table-condensed table-body-center">
         <thead>
             <tr>
                 <th>Id</th>
@@ -38,6 +39,6 @@
         {% endfor %}
         </tbody>
     </table>
-
+</div>
     <a href="{{ path('admin_orders_new') }}"><img src="{{ asset('images/svg/create.png') }}" alt="Création d'un élément"></a>
 {% endblock %}

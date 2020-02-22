@@ -3,8 +3,10 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
-use App\Form\User1Type;
+use App\Form\Admin_UserType;
+use App\Repository\AvatarRepository;
 use App\Repository\UserRepository;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,31 +30,6 @@ class AdminUserController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="admin_user_new", methods={"GET","POST"})
-     * @param Request $request
-     * @return Response
-     */
-    public function new(Request $request): Response
-    {
-        $user = new User();
-        $form = $this->createForm(User1Type::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('admin_user_index');
-        }
-
-        return $this->render('Admin/user/new.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
      * @Route("/{id}", name="admin_user_show", methods={"GET"})
      * @param User $user
      * @return Response
@@ -68,22 +45,31 @@ class AdminUserController extends AbstractController
      * @Route("/{id}/edit", name="admin_user_edit", methods={"GET","POST"})
      * @param Request $request
      * @param User $user
+     * @param AvatarRepository $avatarRepository
      * @return Response
+     * @throws Exception
      */
-    public function edit(Request $request, User $user): Response
+    public function edit(Request $request, User $user, AvatarRepository $avatarRepository): Response
     {
-        $form = $this->createForm(User1Type::class, $user);
+        $form = $this->createForm(Admin_UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
+            $user->setCreatedAt(new \DateTime());
+            if (isset($_POST['imgProfil'])){
+               $avatar =  $avatarRepository->find(['id' => $_POST['imgProfil']]);
+                $user->setAvatar($avatar);
+            }
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+           $em->flush();
             return $this->redirectToRoute('admin_user_index');
         }
 
         return $this->render('Admin/user/edit.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
+            'avatars' => $avatarRepository->findAll()
         ]);
     }
 

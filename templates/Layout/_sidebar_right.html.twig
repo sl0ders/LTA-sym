@@ -1,3 +1,4 @@
+{% if not is_granted('ROLE_ADMIN') %}
 <div class="mt-md-5">
     <img src="{{ asset('images/svg/news_logo.png') }}" alt="">
     {% if news | length > 0 %}
@@ -14,3 +15,4 @@
         </div>
     {% endif %}
 </div>
+{% endif %}
