@@ -3,11 +3,14 @@
 {% block title %}Édition du produit {{ product.name }}{% endblock %}
 
 {% block body %}
-    <h1>Édition du produit {{ product.name }}</h1>
+    <div class="d-flex">
+        <a href="{{ path('admin_product_index') }}">
+            <img src="{{ asset('images/return.png') }}" class="m-2 p-2" width="70" height="60" alt="">
+        </a>
+        <div class="h1 m-auto">Édition du produit {{ product.name }}</div>
+    </div>
 
     {{ include('Admin/product/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('admin_product_index') }}"><img src="{{ asset('images/svg/return.png') }}" alt="">Retouner au menu précédent</a>
 
     {{ include('Admin/product/_delete_form.html.twig') }}
 {% endblock %}

@@ -18,7 +18,6 @@ class Stock
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Product", inversedBy="stock", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
      */
     private $product;
 

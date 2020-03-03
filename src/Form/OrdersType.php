@@ -17,7 +17,7 @@ class OrdersType extends AbstractType
             ->add('total')
             ->add('validation')
             ->add('nCmd')
-            ->add('users')
+            ->add('user')
             ->add('products')
         ;
     }

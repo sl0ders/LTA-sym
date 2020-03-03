@@ -13,8 +13,6 @@ class StockType extends AbstractType
     {
         $builder
             ->add('quantity')
-            ->add('maj_at')
-            ->add('product')
         ;
     }
 

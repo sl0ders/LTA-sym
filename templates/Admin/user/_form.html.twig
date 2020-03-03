@@ -1,25 +1,4 @@
-{{ form_start(form, {"attr" : {"class": "m-auto"}}) }}
-<div class="row">
-    <div class="col-md-6">
-        {{ form_row(form.name, {"attr" : {"class": "form-control mb-2"}}) }}
-        {{ form_row(form.firstname, {"attr" : {"class": "form-control mb-2"}}) }}
-        {{ form_row(form.active, {"attr" : {"class": "form-control mb-2"}}) }}
-        {{ form_row(form.adresse, {"attr" : {"class": "form-control mb-2"}}) }}
-        {{ form_row(form.username, {"attr" : {"class": "form-control mb-2"}}) }}
-        {{ form_row(form.email, {"attr" : {"class": "form-control mb-2"}}) }}
-    </div>
-    <div class="col-md-6">
-        <h3>Choisir l'avatar</h3>
-        <div class="avatar mb-5 mt-5">
-            {% for avatar in avatars %}
-                <input type="radio" class="form-check-input mb-5" id="avatar{{ avatar.id }}"
-                       value="{{ avatar.id }}" name="imgProfil">
-                <label class="form-check-label" for="avatar{{ avatar.id }}">
-                    <img class="mb-5" src="/images/{{ avatar.name }}" alt="{{ avatar.name }}" width="70" height="70">
-                </label>
-            {% endfor %}
-        </div>
-    </div>
+{{ form_start(form) }}
+        {{ form_row(form.Status, {"attr" : {"class": "form-control mb-2 browser-default"}}) }}
     <button class="btn btn-light-blue">{{ button_label|default('Sauvegarder') }}</button>
-</div>
 {{ form_end(form) }}

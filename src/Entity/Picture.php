@@ -58,10 +58,6 @@ class Picture
         return $this;
     }
 
-    public function getProduct(): ?Product
-    {
-        return $this->product;
-    }
 
     public function setProduct(?Product $product): self
     {

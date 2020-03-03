@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\News;
 use App\Form\NewsType;
 use App\Repository\NewsRepository;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,6 +32,7 @@ class AdminNewsController extends AbstractController
      * @Route("/new", name="admin_news_new", methods={"GET","POST"})
      * @param Request $request
      * @return Response
+     * @throws Exception
      */
     public function new(Request $request): Response
     {
@@ -40,6 +42,7 @@ class AdminNewsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $news->setCreatedAt(new \DateTime());
             $entityManager->persist($news);
             $entityManager->flush();
 

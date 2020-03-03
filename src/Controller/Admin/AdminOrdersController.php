@@ -3,7 +3,6 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Orders;
-use App\Form\OrdersType;
 use App\Repository\OrdersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,31 +27,6 @@ class AdminOrdersController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="admin_orders_new", methods={"GET","POST"})
-     * @param Request $request
-     * @return Response
-     */
-    public function new(Request $request): Response
-    {
-        $order = new Orders();
-        $form = $this->createForm(OrdersType::class, $order);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($order);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('admin_orders_index');
-        }
-
-        return $this->render('Admin/orders/new.html.twig', [
-            'order' => $order,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
      * @Route("/{id}", name="admin_orders_show", methods={"GET"})
      * @param Orders $order
      * @return Response
@@ -64,28 +38,6 @@ class AdminOrdersController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}/edit", name="admin_orders_edit", methods={"GET","POST"})
-     * @param Request $request
-     * @param Orders $order
-     * @return Response
-     */
-    public function edit(Request $request, Orders $order): Response
-    {
-        $form = $this->createForm(OrdersType::class, $order);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('admin_orders_index');
-        }
-
-        return $this->render('Admin/orders/edit.html.twig', [
-            'order' => $order,
-            'form' => $form->createView(),
-        ]);
-    }
 
     /**
      * @Route("/{id}", name="admin_orders_delete", methods={"DELETE"})

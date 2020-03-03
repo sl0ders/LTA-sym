@@ -3,9 +3,11 @@
 {% block title %}Creation d'un stocks{% endblock %}
 
 {% block body %}
-    <h1><img src="{{ asset('images/svg/create.png') }}" alt="Création d'un élément"> Stock</h1>
-
+    <div class="d-flex">
+        <a href="{{ path('admin_stock_index') }}">
+            <img src="{{ asset('images/return.png') }}" class="m-2 p-2" width="70" height="60" alt="">
+        </a>
+        <div class="h1 m-auto"><img src="{{ asset('images/svg/create.png') }}" alt="Création d'un élément"> Stock</div>
+    </div>
     {{ include('Admin/stock/_form.html.twig') }}
-
-    <a href="{{ path('admin_stock_index') }}"><img src="{{ asset('images/svg/return.png') }}" alt="">Retouner au menu précédent</a>
 {% endblock %}

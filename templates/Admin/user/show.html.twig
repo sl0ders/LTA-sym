@@ -3,7 +3,12 @@
 {% block title %}Utilisateur {{ user.name }}{% endblock %}
 
 {% block body %}
-    <h1>Utilisateur {{ user.name }}</h1>
+    <div class="d-flex">
+        <a href="{{ path('admin_user_index') }}">
+            <img src="{{ asset('images/return.png') }}" class="m-2 p-2" width="70" height="60" alt="">
+        </a>
+        <div class="h1 m-auto">Utilisateur {{ user.name }}</div>
+    </div>
 
 <div class="responsive-table-line">
     <table class="table table-bordered table-condensed table-body-center">
@@ -21,8 +26,8 @@
                 <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
             </tr>
             <tr>
-                <th>Actif</th>
-                <td>{{ user.active }}</td>
+                <th>Status</th>
+                <td>{{ user.status }}</td>
             </tr>
             <tr>
                 <th>Prénom</th>
@@ -53,9 +58,47 @@
         </tbody>
     </table>
 </div>
-    <a href="{{ path('admin_user_index') }}"><img src="{{ asset('images/svg/return.png') }}" alt="return"></a>
-
-    <a href="{{ path('admin_user_edit', {'id': user.id}) }}"><img src="{{ asset('images/svg/edition.png') }}" alt="édition"></a>
+    <a data-target="{{ path('admin_user_editStatus', {'id': user.id}) }}" data-tooltip="voir"
+       class="font-weight-bold tooltipped modal-trigger right-align"
+       href="#modal1">
+        <img class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#centralModalSm" src="{{ asset('images/svg/edition.png') }}" alt="édition">
+    </a>
 
     {{ include('Admin/user/_delete_form.html.twig') }}
+    <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <!-- Change class .modal-sm to change the size of the modal -->
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title w-100" id="myModalLabel">Modifier le status</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                </div>
+            </div>
+        </div>
 {% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).ready(function () {
+            //On écoute le "click" sur le bouton ayant la classe "modal-trigger"
+            $('.modal-trigger').click(function () {
+                //On initialise les modales materialize
+                $('.modal').modal();
+                //On récupère l'url depuis la propriété "Data-target" de la balise html a
+                url = $(this).attr('data-target');
+                //on fait un appel ajax vers l'action symfony qui nous renvoie la vue
+                $.get(url, function (data) {
+                    //on injecte le html dans la modale
+                    $('.modal-content').html(data);
+                    //on ouvre la modale
+                    $('#modal1').modal();
+                });
+            })
+        });
+    </script>
+{% endblock %}
+

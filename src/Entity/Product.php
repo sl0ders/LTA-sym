@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -33,6 +32,11 @@ class Product
     private $description;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $filenamePng;
+
+    /**
      * @ORM\Column(type="smallint")
      */
     private $price;
@@ -43,6 +47,13 @@ class Product
      * })
      */
     private $pictureFiles;
+
+    /**
+     * @Assert\All({
+     *   @Assert\Image(mimeTypes="image/png")
+     * })
+     */
+    private $pictureFilesPng;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -73,6 +84,11 @@ class Product
      * @ORM\OneToMany(targetEntity="App\Entity\Picture", mappedBy="product", orphanRemoval=true, cascade={"persist"})
      */
     private $pictures;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $quantity;
 
     public function __construct()
     {
@@ -279,6 +295,29 @@ class Product
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getPictureFilesPng()
+    {
+        return $this->pictureFilesPng;
+    }
+
+    /**
+     * @param mixed $pictureFilesPng
+     * @return Product
+     */
+    public function setPictureFilesPng($pictureFilesPng): self
+    {
+        foreach ($pictureFilesPng as $pictureFilePng) {
+            $picture = new Picture();
+            $picture->setImageFile($pictureFilePng);
+            $this->addPicture($picture);
+        }
+        $this->pictureFilesPng = $pictureFilesPng;
+        return $this;
+    }
+
     public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updated_at;
@@ -289,5 +328,40 @@ class Product
         $this->updated_at = $updated_at;
 
         return $this;
+    }
+
+    public function getQuantity(): ?int
+    {
+        return $this->quantity;
+    }
+
+    public function setQuantity(?int $quantity): self
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    /**
+     * @param mixed $filenamePng
+     * @return Product
+     */
+    public function setFilenamePng($filenamePng)
+    {
+        $this->filenamePng = $filenamePng;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFilenamePng()
+    {
+        return $this->filenamePng;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }

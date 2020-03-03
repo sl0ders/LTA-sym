@@ -3,7 +3,12 @@
 {% block title %}Index de gestion des commandes{% endblock %}
 
 {% block body %}
-    <h1>Index de gestion des commandes</h1>
+    <div class="d-flex">
+        <a href="{{ path('admin_home') }}">
+            <img src="{{ asset('images/return.png') }}" class="m-2 p-2" width="70" height="60" alt="">
+        </a>
+        <div class="h1 m-auto">Index de gestion des commandes</div>
+    </div>
 
 <div class="responsive-table-line" style="margin:0 auto;max-width:1700px;">
     <table class="table table-bordered table-condensed table-body-center">
@@ -29,7 +34,6 @@
                 <td>{{ order.nCmd }}</td>
                 <td>
                     <a href="{{ path('admin_orders_show', {'id': order.id}) }}"><img src="{{ asset('images/detail.png') }}" alt="detail"></a>
-                    <a href="{{ path('admin_orders_edit', {'id': order.id}) }}"><img src="{{ asset('images/svg/edition.png') }}" alt="edition"></a>
                 </td>
             </tr>
         {% else %}
@@ -40,5 +44,4 @@
         </tbody>
     </table>
 </div>
-    <a href="{{ path('admin_orders_new') }}"><img src="{{ asset('images/svg/create.png') }}" alt="Création d'un élément"></a>
 {% endblock %}

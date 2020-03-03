@@ -7,15 +7,15 @@
                 <div class="card">
                     <a href="{{ path('public_product_show', {'id' : product.id}) }}"
                        class="text-center m-auto card-img-top">
-                        <img class="img_png" src="/{{ product.imgPNG }}" alt="{{ product.name }} small">
+                        <img class="img_png" src="/images/product/{{ product.filenamePng }}" alt="{{ product.name }} small">
                     </a>
                     <div class="card-body">
                         <h4 class="card-title">{{ product.name |capitalize }}</h4>
-                        <p class="card-text font-weight-bold">{{ product.description |slice(0, 100) }}...</p>
+                        <p class="card-text font-weight-bold">{{ product.description |slice(0, 70) }}...</p>
                         <a href="{{ path('public_product_show', {'id' : product.id}) }}">
-                            <button>En savoir plus</button>
+                            <button class="btn-sm btn-primary">En savoir plus</button>
                         </a>
-                        {% if product.stock.quantity < 1 %}
+                        {% if product.stock.quantity <1 %}
                             <div class="text-center mt-2">
                                 <img src="{{ asset('images/svg/danger.svg') }}" alt="">
                                 <p>Ce produit est malheureusement en rupture de stock</p>

@@ -3,8 +3,10 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Product;
+use App\Entity\Stock;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,6 +33,7 @@ class AdminProductController extends AbstractController
      * @Route("/new", name="admin_product_new", methods={"GET","POST"})
      * @param Request $request
      * @return Response
+     * @throws Exception
      */
     public function new(Request $request): Response
     {
@@ -39,9 +42,15 @@ class AdminProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $stock = new Stock();
+            $stock->setProduct($product);
+            $stock->setQuantity($product->getQuantity());
+            $stock->setMajAt(new \DateTime());
             $entityManager = $this->getDoctrine()->getManager();
             $product->setUpdatedAt(new \DateTime());
+            $product->setFilenamePng($product->getName().".png");
             $entityManager->persist($product);
+            $entityManager->persist($stock);
             $entityManager->flush();
 
             return $this->redirectToRoute('admin_product_index');
@@ -77,7 +86,10 @@ class AdminProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $product->setFilenamePng($product->getName().".png");
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($product);
+            $em->flush();
 
             return $this->redirectToRoute('admin_product_index');
         }

@@ -13,12 +13,15 @@ body {
   margin: 0 auto;
   padding: 0;
 }
+body .browser-default .custom-select {
+  display: block !important;
+}
 body h1 {
   text-align: center;
   margin: 20px;
 }
 body .btn-success {
-  background-color: #AAD07D !important;
+  background-color: #7dbf5d !important;
   border: none;
   color: black;
 }
@@ -96,16 +99,27 @@ body aside .cart_logo img {
 body aside .cart_logo .nb-cart {
   font-family: "Roboto", sans-serif;
   margin-top: 5em;
+  padding: 10px;
   text-align: center;
   border: #0b51c5 solid 2px;
   border-radius: 50%;
-  height: 30px;
-  width: 30px;
   background-color: #0b51c5;
   color: white;
 }
 body main .container {
   margin-top: 10vh;
+}
+body main .case-product {
+  background: rgba(220, 150, 2, 0.2);
+}
+body main .case-user {
+  background: rgba(220, 59, 4, 0.2);
+}
+body main .case-news {
+  background: rgba(71, 7, 220, 0.2);
+}
+body main .case-order {
+  background: rgba(0, 220, 9, 0.2);
 }
 body main .number-input input[type=number] {
   -webkit-appearance: textfield;
@@ -245,19 +259,10 @@ body main .grid .card {
   visibility: visible;
   animation-name: fadeInUp;
 }
-body main .grid .card .card-img, body main .grid .card .card-img-top {
-  max-height: 230px;
-}
-body main .grid .card .card-body {
-  text-align: center;
-}
-body main .grid .card .card-body form .form-control {
-  width: 60px;
-}
 body main .grid .card .card-img-top {
   margin-top: -1.25rem !important;
   width: 90%;
-  height: 20rem;
+  height: 15rem;
   background: url("../../public/images/Arrière-plan-copie.png") no-repeat center center;
   background-size: cover;
 }
@@ -265,6 +270,13 @@ body main .grid .card .card-img-top img {
   width: 80%;
   height: 70%;
   margin-top: 2.5em;
+}
+body main .grid .card .card-body {
+  text-align: center;
+  padding: 10px;
+}
+body main .grid .card .card-body form .form-control {
+  width: 60px;
 }
 body button::before {
   height: 30px;

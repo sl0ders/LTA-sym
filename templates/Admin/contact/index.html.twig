@@ -3,9 +3,15 @@
 {% block title %}Index de gestion des contacts{% endblock %}
 
 {% block body %}
-    <h1>Index de gestion des contacts</h1>
+    <div class="d-flex">
+        <a href="{{ path('admin_home') }}">
+            <img src="{{ asset('images/return.png') }}" class="m-2 p-2" width="70" height="60" alt="">
+        </a>
+        <div class="h1 m-auto">Index de gestion des contacts</div>
+    </div>
 
-    <table class="table">
+<div class="responsive-table-line" style="margin:0 auto;max-width:1700px;">
+    <table class="table table-bordered table-condensed table-body-center">
         <thead>
             <tr>
                 <th>Id</th>
@@ -39,4 +45,5 @@
         {% endfor %}
         </tbody>
     </table>
+</div>
 >{% endblock %}

@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('public_orders_changeValid', {'id': order.id}) }}" onsubmit="return confirm('Souhaitez-vous réelement annuler la commande ?');">
+    <input type="hidden" name="_method" value="changevalid">
+    <input type="hidden" name="_token" value="{{ csrf_token('changeValid' ~ order.id) }}">
+    <button class="btn">Annuler la commande</button>
+</form>

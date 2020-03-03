@@ -7,45 +7,50 @@
         <div class="row">
             <div class="col-md-10 font-weight-bold  user_show m-auto peach-gradient-rgba">
                 <div class="text-center text-white p-3">
-                    <h1>Vos informations</h1>
+                    <div class="d-flex">
+                        <a href="{{ path('home_user', {'name' : app.user.name}) }}">
+                            <img src="{{ asset('images/return.png') }}" class="m-2 p-2" width="70" height="60" alt="">
+                        </a>
+                        <h1 class="mb-5 m-auto">Vos informations</h1>
+                    </div>
                 </div>
                 <div class="responsive-table-line" style="margin:0 auto;max-width:1700px;">
                     <table class="table table-bordered text-center table-condensed table-body-center">
                         <tbody>
                         <tr>
                             <th scope="row" class="font-weight-bolder">Nom</th>
-                            <td>{{ app.user.name }}</td>
+                            <td>{{ user.name }}</td>
                         </tr>
                         <tr>
                             <th scope="row" class="font-weight-bolder">Prenom</th>
-                            <td>{{ app.user.firstname }}</td>
+                            <td>{{ user.firstname }}</td>
                         </tr>
                         <tr>
                             <th scope="row" class="font-weight-bolder">Adresse email</th>
-                            <td>{{ app.user.email }}</td>
+                            <td>{{ user.email }}</td>
                         </tr>
                         <tr>
                             <th scope="row" class="font-weight-bolder">Status</th>
                             <td>
-                                {% if app.user.active == 0 %}
+                                {% if user.status == "visiteur" %}
                                     Visiteur
-                                {% elseif app.user.active == 1 %}
-                                    Utilisateur confirmé
-                                {% elseif app.user.active == 2 %}
+                                {% elseif user.status == "Client" %}
+                                    Client(e)
+                                {% elseif user.status == "Administrateur" %}
                                     Administrateur
-                                {% elseif app.user.active == 3 %}
+                                {% elseif user.status == "ban" %}
                                     Utilisateur bannie
                                 {% endif %}
                             </td>
                         </tr>
                         <tr>
                             <th scope="row" class="font-weight-bolder">Votre avatar</th>
-                            <td><img src="/images/{{ app.user.avatar }}" alt="imgProfile"></td>
+                            <td><img src="/images/{{ user.avatar }}" alt="imgProfile"></td>
                         </tr>
-                        {% if app.user.active == 1 or  app.user.active == 2 %}
+                        {% if user.status == 'Client' or  user.status == 2 %}
                             <tr>
                                 <td>
-                                    <a href="{{ path('public_edit_user', {'id' : app.user.id}) }}">
+                                    <a href="{{ path('public_edit_user', {'name' : user.name}) }}">
                                         <button class="btn-success btn-sm">Modifier mon compte</button>
                                     </a>
                                 </td>

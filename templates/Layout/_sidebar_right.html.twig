@@ -1,6 +1,6 @@
 {% if not is_granted('ROLE_ADMIN') %}
 <div class="mt-md-5">
-    <img src="{{ asset('images/svg/news_logo.png') }}" alt="">
+    <img src="{{ asset('images/svg/news_logo.png') }}" width="200" alt="">
     {% if news | length > 0 %}
         <div class="border">
             {% for new in news %}

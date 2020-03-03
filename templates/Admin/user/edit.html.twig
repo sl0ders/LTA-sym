@@ -1,15 +1,5 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Édition de l'utilisateur {{ user.name }}{% endblock %}
-
 {% block body %}
-    <div class="peach-gradient-rgba p-4 mt-4" style="border-radius: 25px">
-    <h1>Édition de l'utilisateur {{ user.name }}</h1>
-
-    {{ include('Admin/user/_form.html.twig', {'button_label': 'Mise a jour'}) }}
-
-    <a href="{{ path('admin_user_index') }}"><img src="{{ asset('images/svg/return.png') }}" alt="return"></a>
-
-    {{ include('Admin/user/_delete_form.html.twig') }}
+    <div class="p-5">
+        {{ include('Admin/user/_form.html.twig') }}
     </div>
 {% endblock %}

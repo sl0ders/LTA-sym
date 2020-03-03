@@ -6,7 +6,13 @@
     <div class="container signIn">
         <div class="row text-center">
             <div class="col-md-10 m-auto border shadow p-5 rgba-blue-grey-light">
-                <h1 class="mb-5">Vos informations</h1>
+                <div class="d-flex">
+                    <a href="{{ path('user_profile_detail', {'name' : app.user.name}) }}">
+                        <img src="{{ asset('images/return.png') }}" class="m-2 p-2" width="70" height="60" alt="">
+                    </a>
+                   <h1 class="mb-5">Vos informations</h1>
+                </div>
+
                 <div class="form d-flex justify-content-between">
                     {{ include('Public/user/_form.html.twig') }}
                 </div>

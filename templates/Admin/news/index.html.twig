@@ -3,9 +3,15 @@
 {% block title %}Index de gestion des news{% endblock %}
 
 {% block body %}
-    <h1>Index de gestion des news</h1>
+    <div class="d-flex">
+        <a href="{{ path('admin_home') }}">
+            <img src="{{ asset('images/return.png') }}" class="m-2 p-2" width="70" height="60" alt="">
+        </a>
+        <div class="h1 m-auto">Index de gestion des news</div>
+    </div>
 
-    <table class="table">
+<div class="responsive-table-line" style="margin:0 auto;max-width:1700px;">
+    <table class="table table-bordered table-condensed table-body-center">
         <thead>
             <tr>
                 <th>Id</th>
@@ -22,7 +28,7 @@
                 <td>{{ news.id }}</td>
                 <td>{{ news.Title }}</td>
                 <td>{{ news.content }}</td>
-                <td>{{ news.image }}</td>
+                <td>{{ news.filename }}</td>
                 <td>{{ news.createdAt ? news.createdAt|date('d/m/Y H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('admin_news_show', {'id': news.id}) }}"><img src="{{ asset('images/detail.png') }}" alt="détail"></a>
@@ -36,6 +42,6 @@
         {% endfor %}
         </tbody>
     </table>
-
+</div>
     <a href="{{ path('admin_news_new') }}"><img src="{{ asset('images/svg/create.png') }}" alt="Création d'un élément"></a>
 {% endblock %}

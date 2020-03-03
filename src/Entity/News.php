@@ -3,9 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\NewsRepository")
+ * @Vich\Uploadable()
  */
 class News
 {
@@ -28,6 +32,13 @@ class News
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $filename;
+
+    /**
+     * @Assert\Image(mimeTypes="image/jpeg")
+     * @Vich\UploadableField(mapping="product_image", fileNameProperty="filename")
+     * @var File|null
      */
     private $image;
 
@@ -70,12 +81,12 @@ class News
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getImage(): ?File
     {
         return $this->image;
     }
 
-    public function setImage(?string $image): self
+    public function setImage(?File $image = null): self
     {
         $this->image = $image;
 
@@ -104,5 +115,21 @@ class News
         $this->product = $product;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFilename()
+    {
+        return $this->filename;
+    }
+
+    /**
+     * @param mixed $filename
+     */
+    public function setFilename($filename): void
+    {
+        $this->filename = $filename;
     }
 }

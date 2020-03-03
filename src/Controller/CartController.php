@@ -76,16 +76,15 @@ class CartController extends AbstractController
             $order = new Orders();
             $order
                 ->setCreatedAt(new DateTime())
-                ->setNCmd($this->getUser()->getUsername().'-'.date("Y-d-m-i-s"))
+                ->setNCmd(date("Y-d-m-i-s"))
                 ->setQuantity($cart['quantity'])
-                ->setUsers($this->getUser())
+                ->setUser($this->getUser())
                 ->setProducts($cart['product'])
                 ->setTotal(intval($this->cartService->getTotal()))
                 ->setValidation(1);
             $em->persist($order);
         }
         $em->flush();
-
         $this->get('session')->remove('cart');
         return $this->redirectToRoute("home");
     }

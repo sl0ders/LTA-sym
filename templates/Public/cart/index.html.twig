@@ -5,7 +5,12 @@
         <div class="row">
             <div class="col-md-10 font-weight-bold m-auto">
                 <div class="text-center text-white p-3 blue-gradient-rgba">
-                    <h1>Votre panier</h1>
+                    <div class="d-flex">
+                        <a href="{{ path('home') }}">
+                            <img src="{{ asset('images/return.png') }}" class="m-2 p-2" width="70" height="60" alt="">
+                        </a>
+                        <div class="h1 m-auto"> Votre panier</div>
+                    </div>
                 </div>
                 <div class="responsive-table-line" style="margin:0 auto;max-width:1700px;">
                     <table class="table table-bordered rgba-light-blue-strong text-center table-condensed table-body-center">

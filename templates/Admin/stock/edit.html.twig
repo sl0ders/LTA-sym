@@ -3,11 +3,12 @@
 {% block title %}Édition du Stock{% endblock %}
 
 {% block body %}
-    <h1>Édition du Stock</h1>
-
+    <div class="d-flex">
+        <a href="{{ path('admin_stock_index') }}">
+            <img src="{{ asset('images/return.png') }}" class="m-2 p-2" width="70" height="60" alt="">
+        </a>
+        <div class="h1 m-auto">Édition du Stock</div>
+    </div>
     {{ include('Admin/stock/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('admin_stock_index') }}"><img src="{{ asset('images/svg/return.png') }}" alt="">Retouner au menu précédent</a>
-
     {{ include('Admin/stock/_delete_form.html.twig') }}
 {% endblock %}

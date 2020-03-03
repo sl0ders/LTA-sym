@@ -4,9 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Form\Admin_UserType;
-use App\Repository\AvatarRepository;
 use App\Repository\UserRepository;
-use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,58 +16,55 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminUserController extends AbstractController
 {
     /**
-     * @Route("/", name="admin_user_index", methods={"GET"})
+     * @Route("/", name="admin_user_index", methods={"GET", "POST"})
      * @param UserRepository $userRepository
+     * @param Request $request
      * @return Response
      */
-    public function index(UserRepository $userRepository): Response
+    public function index(UserRepository $userRepository, Request $request): Response
     {
+        $formStatus = $this->createForm(Admin_UserType::class);
+        $formStatus->handleRequest($request);
+
         return $this->render('Admin/user/index.html.twig', [
             'users' => $userRepository->findAll(),
+            'form' => $formStatus->createView()
         ]);
     }
 
     /**
-     * @Route("/{id}", name="admin_user_show", methods={"GET"})
+     * @Route("/{id}", name="admin_user_show", methods={"GET","POST"})
      * @param User $user
+     * @param Request $request
      * @return Response
      */
-    public function show(User $user): Response
+    public function show(User $user,Request $request): Response
     {
+        $formStatus = $this->createForm(Admin_UserType::class, $user);
+        $formStatus->handleRequest($request);
+        if ($formStatus->isSubmitted() && $formStatus->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+            return $this->redirectToRoute("admin_user_index");
+        }
         return $this->render('Admin/user/show.html.twig', [
             'user' => $user,
         ]);
     }
 
     /**
-     * @Route("/{id}/edit", name="admin_user_edit", methods={"GET","POST"})
-     * @param Request $request
+     * @Route("/edit/{id}", name="admin_user_editStatus")
      * @param User $user
-     * @param AvatarRepository $avatarRepository
+     * @param Request $request
      * @return Response
-     * @throws Exception
      */
-    public function edit(Request $request, User $user, AvatarRepository $avatarRepository): Response
+    public function editStatus(User $user, Request $request)
     {
-        $form = $this->createForm(Admin_UserType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user->setCreatedAt(new \DateTime());
-            if (isset($_POST['imgProfil'])){
-               $avatar =  $avatarRepository->find(['id' => $_POST['imgProfil']]);
-                $user->setAvatar($avatar);
-            }
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-           $em->flush();
-            return $this->redirectToRoute('admin_user_index');
-        }
-
+        $formStatus = $this->createForm(Admin_UserType::class, $user);
+        $formStatus->handleRequest($request);
         return $this->render('Admin/user/edit.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-            'avatars' => $avatarRepository->findAll()
+            "form" => $formStatus->createView()
         ]);
     }
 
@@ -81,12 +76,11 @@ class AdminUserController extends AbstractController
      */
     public function delete(Request $request, User $user): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);
             $entityManager->flush();
         }
-
         return $this->redirectToRoute('admin_user_index');
     }
 }
