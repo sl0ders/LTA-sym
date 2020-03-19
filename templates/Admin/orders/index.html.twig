@@ -30,7 +30,13 @@
                 <td>{{ order.quantity }}</td>
                 <td>{{ order.createdAt ? order.createdAt|date('d/m/Y H:i:s') : '' }}</td>
                 <td>{{ order.total }}</td>
-                <td>{{ order.validation }}</td>
+                <td>
+                    {% if order.validation == 1 %} Commande en cour de validation
+                    {% elseif order.validation == 2 %} Commande validée
+                    {% elseif order.validation == 3 %} Commande prete
+                    {% elseif order.validation == 5 %} Commande annulé
+                    {% endif %}
+                </td>
                 <td>{{ order.nCmd }}</td>
                 <td>
                     <a href="{{ path('admin_orders_show', {'id': order.id}) }}"><img src="{{ asset('images/detail.png') }}" alt="detail"></a>

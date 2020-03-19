@@ -30,12 +30,6 @@ body .btn-refresh {
 }
 body header nav {
   background-color: rgba(255, 255, 255, 0.6);
-  height: 30vh;
-}
-@media screen and (max-width: 930px) {
-  body header nav {
-    height: 50vh;
-  }
 }
 body header .speach {
   padding-left: 2em;
@@ -95,10 +89,11 @@ body aside .cart_logo {
 }
 body aside .cart_logo img {
   width: 6rem;
+  height: 6rem;
 }
 body aside .cart_logo .nb-cart {
   font-family: "Roboto", sans-serif;
-  margin-top: 5em;
+  margin-top: 4em;
   padding: 10px;
   text-align: center;
   border: #0b51c5 solid 2px;

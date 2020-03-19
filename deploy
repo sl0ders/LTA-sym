@@ -1,0 +1,2 @@
+#!/bin/sh
+rsync -av ./ u95153084@home756786028.1and1-data.host:LTA-sym --include=public/.htaccess --include=vendor --include=public/build --exclude-from=.gitignore --exclude=".*"

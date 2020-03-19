@@ -4,6 +4,7 @@
 namespace App\Controller\Publics;
 
 use App\Entity\Orders;
+use App\Repository\OrdersRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,11 +19,15 @@ class PublicOrderController extends AbstractController
 {
     /**
      * @Route("/{name}", name="user_orders")
+     * @param OrdersRepository $repository
      * @return Response
      */
-    public function ordersUser()
+    public function ordersUser(OrdersRepository $repository)
     {
-        return $this->render('Public/orders/index.html.twig');
+        $orders = $repository->findAll();
+        return $this->render('Public/orders/index.html.twig',[
+            "orders" => $orders
+        ]);
     }
 
     /**

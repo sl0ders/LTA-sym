@@ -14,12 +14,15 @@ class ContactType extends ApplicationType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username',TextType::class,$this->getConfig("Votre pseudo", "Entrez votre pseudo ..."))
-            ->add('firstname',TextType::class,$this->getConfig("Votre prénom","Entrez votre prénom ..."))
-            ->add('email',TextType::class,$this->getConfig("Votre adresse email", "Entrez votre adresse email ..."))
-            ->add('subject',TextType::class,$this->getConfig("Sujet du message", "Entrez le sujet de votre message ..."))
-            ->add('message',TextareaType::class,$this->getConfig("Votre message", "Entrez votre message ici ..."))
-        ;
+            ->add('username', TextType::class, $this->getConfig("Votre pseudo", "Entrez votre pseudo ..."))
+            ->add('firstname', TextType::class, $this->getConfig("Votre prénom", "Entrez votre prénom ..."))
+            ->add('email', TextType::class, $this->getConfig("Votre adresse email", "Entrez votre adresse email ..."))
+            ->add('subject', TextType::class, $this->getConfig("Sujet du message", "Entrez le sujet de votre message ..."))
+            ->add('message', TextareaType::class, ['label' => "Entrez votre message",
+                'attr' => [
+                    'placeholder' => "Entrez votre message",
+                    'is' => 'textarea-autogrow',
+                ]]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

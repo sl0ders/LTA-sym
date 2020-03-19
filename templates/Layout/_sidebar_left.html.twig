@@ -1,7 +1,12 @@
 {% if not is_granted('ROLE_ADMIN') %}
     <div class="cart_logo ml-md-5">
         <a href="{{ path('cart_index') }}" class=" d-flex">
-            <img src="{{ asset('images/order_Cart.png') }}" alt="">
+
+            {% if app.session.get('cart') is null %}
+                <img src="{{ asset('images/order_Cart.png') }}" alt="">
+            {% else %}
+                <img src="{{ asset('images/order_Cart_full.png') }}" alt="">
+            {% endif %}
             <div class="nb-cart">{{ cartTotal }}€</div>
         </a>
     </div>

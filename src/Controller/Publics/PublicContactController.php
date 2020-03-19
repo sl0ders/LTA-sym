@@ -17,6 +17,7 @@ class PublicContactController extends AbstractController
      * @Route("/new", name="public_contact_new", methods={"GET","POST"})
      * @param Request $request
      * @return Response
+     * @throws \Exception
      */
     public function new(Request $request): Response
     {
