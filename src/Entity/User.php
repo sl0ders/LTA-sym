@@ -37,11 +37,6 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @Assert\EqualTo(propertyPath="password", message="le mot de passe doit etre identique a sa confirmation")
-     */
-    private $confirm_password;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $firstname;
@@ -74,7 +69,7 @@ class User implements UserInterface
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Orders", mappedBy="user", orphanRemoval=true)
      */
-    private $Orders;
+    private $orders;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Avatar", inversedBy="users")
@@ -89,7 +84,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->contact = new ArrayCollection();
-        $this->Orders = new ArrayCollection();
+        $this->orders = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -261,13 +256,13 @@ class User implements UserInterface
      */
     public function getOrders(): Collection
     {
-        return $this->Orders;
+        return $this->orders;
     }
 
     public function addOrder(Orders $order): self
     {
-        if (!$this->Orders->contains($order)) {
-            $this->Orders[] = $order;
+        if (!$this->orders->contains($order)) {
+            $this->orders[] = $order;
             $order->setUser($this);
         }
 
@@ -276,8 +271,8 @@ class User implements UserInterface
 
     public function removeOrder(Orders $order): self
     {
-        if ($this->Orders->contains($order)) {
-            $this->Orders->removeElement($order);
+        if ($this->orders->contains($order)) {
+            $this->orders->removeElement($order);
             // set the owning side to null (unless already changed)
             if ($order->getUser() === $this) {
                 $order->setUser(null);
@@ -299,25 +294,9 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getConfirmPassword()
-    {
-        return $this->confirm_password;
-    }
-
     public function __toString(): string
     {
         return $this->name;
-    }
-
-    /**
-     * @param string $confirm_password
-     */
-    public function setConfirmPassword(string $confirm_password): void
-    {
-        $this->confirm_password = $confirm_password;
     }
 
     public function getStatus(): ?string

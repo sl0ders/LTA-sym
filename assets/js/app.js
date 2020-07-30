@@ -1,9 +1,14 @@
+import React from "react";
+import RightComponent from "./Component/RightComponent"
+import ReactDOM from "react-dom";
+import select2 from "select2"
+
 $('.cross').on('click', () => {
     console.log('close');
 });
-
 new WOW().init();
 import '../css/app.css';
+
 
 class Autogrow extends HTMLTextAreaElement {
 
@@ -29,7 +34,7 @@ class Autogrow extends HTMLTextAreaElement {
     }
 
     onFocus() {
-        this.autogrow()
+        this.autogrow();
         this.removeEventListener('focus', this.onFocus)
     }
 
@@ -41,3 +46,14 @@ class Autogrow extends HTMLTextAreaElement {
 }
 
 customElements.define('textarea-autogrow', Autogrow, {extends: 'textarea'});
+
+const App = () => {
+    return (
+        <div>
+            <RightComponent/>
+        </div>
+    );
+};
+
+const rootElement = document.querySelector('#root');
+ReactDOM.render(<App/>, rootElement);

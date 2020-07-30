@@ -19,7 +19,7 @@ class NewsType extends AbstractType
         $builder
             ->add('Title', TextType::class, ['label' => 'Titre de la news'])
             ->add('content', TextareaType::class, ['label' => 'Contenu de la news'])
-            ->add('image', FileType::class, [
+            ->add('filename', FileType::class, [
                 'required' => false,
                 'label' => 'Choisissez une image pour illustrer la news'
             ])

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\StockRepository")
  */
-class Stock
+class Stock implements \ArrayAccess
 {
     /**
      * @ORM\Id()
@@ -22,7 +22,7 @@ class Stock
     private $product;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(name="quantity", type="float", nullable=true)
      */
     private $quantity;
 
@@ -69,5 +69,25 @@ class Stock
     {
         $this->maj_at = $maj_at;
         return $this;
+    }
+
+    public function offsetExists($offset)
+    {
+        // TODO: Implement offsetExists() method.
+    }
+
+    public function offsetGet($offset)
+    {
+        // TODO: Implement offsetGet() method.
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        // TODO: Implement offsetSet() method.
+    }
+
+    public function offsetUnset($offset)
+    {
+        // TODO: Implement offsetUnset() method.
     }
 }

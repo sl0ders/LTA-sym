@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="LTA-sym" uploadOnCheckin="fd4c7218-feea-4975-af37-b94bb243e313">
+    <serverData>
+      <paths name="LTA-sym">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$" web="https://symfony.lesterresdaris.fr/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myUploadOnCheckinName" value="LTA-sym" />
+  </component>
+</project>

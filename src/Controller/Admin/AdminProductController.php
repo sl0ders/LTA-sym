@@ -7,7 +7,9 @@ use App\Entity\Stock;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use Exception;
+use Faker\Provider\Lorem;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -42,13 +44,19 @@ class AdminProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $pngFile = $form->get('filenamePng')->getData();
+            $jpgFile = $form->get('filenameJpg')->getData();
+            $pngNewName = self::upload($pngFile);
+            $jpgNewName = self::upload($jpgFile);
+
             $stock = new Stock();
             $stock->setProduct($product);
             $stock->setQuantity($product->getQuantity());
             $stock->setMajAt(new \DateTime());
             $entityManager = $this->getDoctrine()->getManager();
             $product->setUpdatedAt(new \DateTime());
-            $product->setFilenamePng($product->getName().".png");
+            $product->setFilenameJpg($jpgNewName);
+            $product->setFilenamePng($pngNewName);
             $entityManager->persist($product);
             $entityManager->persist($stock);
             $entityManager->flush();
@@ -115,5 +123,24 @@ class AdminProductController extends AbstractController
         }
 
         return $this->redirectToRoute('admin_product_index');
+    }
+
+    private function upload($fileName) {
+        if ($fileName) {
+
+            $originalFilename = pathinfo($fileName->getClientOriginalName(), PATHINFO_FILENAME);
+            $newFilename = $originalFilename.'-'.uniqid().'.'.$fileName->guessExtension();
+
+            // Move the file to the directory where brochures are stored
+            try {
+                $fileName->move(
+                    $this->getParameter('imgProduct_directory'),
+                    $newFilename
+                );
+            } catch (FileException $e) {
+                return $e;
+            }
+            return $newFilename;
+        }
     }
 }

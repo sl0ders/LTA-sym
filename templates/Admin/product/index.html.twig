@@ -18,6 +18,7 @@
                 <th>Nom</th>
                 <th>Description</th>
                 <th>Prix</th>
+                <th>Stock</th>
                 <th>Grande image</th>
                 <th>Petite image</th>
                 <th>Unité de vente</th>
@@ -26,15 +27,16 @@
         </thead>
         <tbody>
         {% for product in products %}
-            <tr>
-                <td>{{ product.id }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.description }}</td>
-                <td>{{ product.price }}</td>
-                <td><img src="{{ vich_uploader_asset(product.picture, 'imageFile') | imagine_filter('thumb')}}" alt="{{ product.name }}.jpg"></td>
-                <td><img src="/images/product/{{ product.filenamePng }}" width="100px" alt="{{ product.name }}.png"></td>
-                <td>{{ product.Unity }}</td>
-                <td>
+            <tr class="{{ product.stock.quantity >50 ? "green" : "red" }} product-table">
+                <td class="text-center align-middle"><div class="detail-table">Id :</div>{{ product.id }}</td>
+                <td class="text-center align-middle"><div class="detail-table">Nom du produit :</div>{{ product.name }}</td>
+                <td class="text-center align-middle"><div class="detail-table">Description :</div>{{ product.description }}</td>
+                <td class="text-center align-middle"><div class="detail-table">Prix :</div>{{ product.price }} &euro;</td>
+                <td class="text-center align-middle"><div class="detail-table">Stock :</div>{{ product.stock.quantity }}</td>
+                <td class="text-center align-middle"><div class="detail-table">Grande image :</div><img src="/images/products/{{ product.filenameJpg }}" width="100px" alt="{{ product.name }}.png"></td>
+                <td class="text-center align-middle"><div class="detail-table">Petite image :</div><img src="/images/products/{{ product.filenamePng }}" alt="{{ product.name }}.jpg" width="50%"></td>
+                <td class="text-center align-middle"><div class="detail-table">Unité :</div>{{ product.Unity }}</td>
+                <td class="text-center align-middle"><div class="detail-table">Action :</div>
                     <a href="{{ path('admin_product_show', {'id': product.id}) }}"><img src="{{ asset('images/detail.png') }}" alt="detail"></a>
                     <a href="{{ path('admin_product_edit', {'id': product.id}) }}"><img src="{{ asset('images/svg/edition.png') }}" alt="edition"></a>
                 </td>
@@ -47,5 +49,7 @@
         </tbody>
     </table>
 </div>
+    <div class="d-flex justify-content-end" title="Créer">
     <a href="{{ path('admin_product_new') }}"><img src="{{ asset('images/svg/create.png') }}" alt="Création d'un élément"></a>
+    </div>
 {% endblock %}

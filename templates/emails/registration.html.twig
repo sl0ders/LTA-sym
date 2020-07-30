@@ -1,0 +1,3 @@
+
+Bienvenue sur le site des terres d'aris {{ user.name }} {{ user.firstname }}, ceci est le message de confirmation de mail
+<a href="http://localhost:8000/{{ path('app_confirm', {"id": user.id}) }}">Cliquez ici pour finaliser votre inscription</a>

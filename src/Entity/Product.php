@@ -33,27 +33,28 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\File(
+     *     maxSize = "1024k",
+     *     mimeTypes= "png",
+     *     mimeTypesMessage = "Veuillez choisir une image au format png de 1 mo maximum",
+     * )
      */
     private $filenamePng;
 
     /**
-     * @ORM\Column(type="smallint")
+     * @ORM\Column(type="string", length=255)
+     * @Assert\File(maxSize="1024k",
+     *      mimeTypes ={"jpg", "jpeg"},
+     *      mimeTypesMessage ="Veuillez choisir une image au format jpg ou jpeg de 1 mo maximum"
+     * )
+     */
+    private $filenameJpg;
+
+    /**
+     * @ORM\Column(type="decimal", precision=5, scale=2)
      */
     private $price;
 
-    /**
-     * @Assert\All({
-     *   @Assert\Image(mimeTypes="image/jpeg")
-     * })
-     */
-    private $pictureFiles;
-
-    /**
-     * @Assert\All({
-     *   @Assert\Image(mimeTypes="image/png")
-     * })
-     */
-    private $pictureFilesPng;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -80,21 +81,11 @@ class Product
      */
     private $news;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Picture", mappedBy="product", orphanRemoval=true, cascade={"persist"})
-     */
-    private $pictures;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $quantity;
 
     public function __construct()
     {
         $this->orders = new ArrayCollection();
         $this->news = new ArrayCollection();
-        $this->pictures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -230,94 +221,6 @@ class Product
         return $this;
     }
 
-    /**
-     * @return Collection|Picture[]
-     */
-    public function getPictures(): Collection
-    {
-        return $this->pictures;
-    }
-
-    /**
-     *
-     */
-    public function getPicture(): ?Picture
-    {
-        if ($this->pictures->isEmpty()) {
-            return null;
-        }
-        return $this->pictures->first();
-    }
-
-    public function addPicture(Picture $picture): self
-    {
-        if (!$this->pictures->contains($picture)) {
-            $this->pictures[] = $picture;
-            $picture->setProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removePicture(Picture $picture): self
-    {
-        if ($this->pictures->contains($picture)) {
-            $this->pictures->removeElement($picture);
-            // set the owning side to null (unless already changed)
-            if ($picture->getProduct() === $this) {
-                $picture->setProduct(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPictureFiles()
-    {
-        return $this->pictureFiles;
-    }
-
-    /**
-     * @param mixed $pictureFiles
-     * @return Product
-     */
-    public function setPictureFiles($pictureFiles): self
-    {
-        foreach ($pictureFiles as $pictureFile) {
-            $picture = new Picture();
-            $picture->setImageFile($pictureFile);
-            $this->addPicture($picture);
-        }
-        $this->pictureFiles = $pictureFiles;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPictureFilesPng()
-    {
-        return $this->pictureFilesPng;
-    }
-
-    /**
-     * @param mixed $pictureFilesPng
-     * @return Product
-     */
-    public function setPictureFilesPng($pictureFilesPng): self
-    {
-        foreach ($pictureFilesPng as $pictureFilePng) {
-            $picture = new Picture();
-            $picture->setImageFile($pictureFilePng);
-            $this->addPicture($picture);
-        }
-        $this->pictureFilesPng = $pictureFilesPng;
-        return $this;
-    }
-
     public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updated_at;
@@ -330,26 +233,25 @@ class Product
         return $this;
     }
 
-    public function getQuantity(): ?int
+    public function __toString(): string
     {
-        return $this->quantity;
-    }
-
-    public function setQuantity(?int $quantity): self
-    {
-        $this->quantity = $quantity;
-
-        return $this;
+        return $this->name;
     }
 
     /**
-     * @param mixed $filenamePng
-     * @return Product
+     * @return mixed
      */
-    public function setFilenamePng($filenamePng)
+    public function getFilenameJpg()
     {
-        $this->filenamePng = $filenamePng;
-        return $this;
+        return $this->filenameJpg;
+    }
+
+    /**
+     * @param mixed $filenameJpg
+     */
+    public function setFilenameJpg($filenameJpg): void
+    {
+        $this->filenameJpg = $filenameJpg;
     }
 
     /**
@@ -360,8 +262,11 @@ class Product
         return $this->filenamePng;
     }
 
-    public function __toString(): string
+    /**
+     * @param mixed $filenamePng
+     */
+    public function setFilenamePng($filenamePng): void
     {
-        return $this->name;
+        $this->filenamePng = $filenamePng;
     }
 }

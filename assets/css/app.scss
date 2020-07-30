@@ -1,5 +1,5 @@
 @import url(~bootstrap);
-
+@import url(~select2);
 @font-face {
   font-family: "Fantasy W01 Regular1504285";
   src: url("/font/d59cb9bb-e302-4d03-a28c-f5d7fc170d1d.eot?#iefix");
@@ -16,6 +16,10 @@ body {
   font-weight: 900;
   margin: 0 auto;
   padding: 0;
+
+  .detail-table {
+    display: none;
+  }
 
   .browser-default .custom-select {
     display:block!important;
@@ -236,6 +240,10 @@ body {
         font-weight: 900;
         font-size: 1.2em;
       }
+
+      tr{
+        max-height: 60px!important;
+      }
     }
 
     @media not all and (min-resolution: .001dpcm) {
@@ -253,6 +261,11 @@ body {
           display: block;
         }
       }
+
+      .detail-table{
+        display: block;
+      }
+
       .responsive-table-line td:before {
         content: attr(data-title);
       }
@@ -282,7 +295,7 @@ body {
         position: absolute;
         top: 0;
         left: 0;
-        height: 100%;
+        height: 50%;
         white-space: nowrap;
         text-overflow: ellipsis !important;
         overflow: hidden !important;
@@ -327,8 +340,6 @@ body {
             }
           }
         }
-
-
       }
     }
   }
@@ -358,10 +369,11 @@ body {
     }
   }
 
-
   .img_show {
     width: 40rem;
     height: 35rem;
     border-radius: 10px;
   }
+
 }
+

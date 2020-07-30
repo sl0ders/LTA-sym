@@ -13,12 +13,12 @@
         <div class="container-fluid">
             <div class="row d-flex justify-content-center">
                 <div class="case-stock col-md-3 m-3 border rounded rgba-light-green-light">
-                    <a class="text-decoration-none" href="{{ path('user_profile_detail', {'name' : user.firstname}) }}">
+                    <a class="text-decoration-none" href="{{ app.user ? path('user_profile_detail', {'name' : user.username}) }}">
                         <h3 class="text-center font-weight-bold mt-3">Gestion de votre compte</h3>
                         <img src="{{ asset('images/svg/gestion_user.png') }}" width="60%" alt="Gestion des stock"></a>
                 </div>
                 <div class="case-contact col-md-3 m-3 border rounded rgba-light-blue-light">
-                    <a class="text-decoration-none" href="{{ path('user_orders', {'name' : user.firstname}) }}">
+                    <a class="text-decoration-none" href="{{app.user ? path('user_orders', {'name' : user.username}) }}">
                         <h3 class="text-center font-weight-bold mt-3">Gestion de vos commandes</h3>
                         <img src="{{ asset('images/gestion_order.png') }}" width="60%" alt="Gestion des contacts"></a>
                 </div>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="fd4c7218-feea-4975-af37-b94bb243e313" name="LTA-sym" url="http://home756786028.1and1-data.host">
+        <fileTransfer host="home756786028.1and1-data.host" port="22" rootFolder="/LTA-sym" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

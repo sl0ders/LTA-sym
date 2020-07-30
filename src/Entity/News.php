@@ -2,14 +2,19 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\NewsRepository")
  * @Vich\Uploadable()
+ * @ApiResource(
+ *      normalizationContext={"groups"={"news_read"}},
+ * )
  */
 class News
 {
@@ -22,33 +27,31 @@ class News
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"news_read"})
      */
-    private $Title;
+    private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"news_read"})
      */
     private $content;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"news_read"})
      */
     private $filename;
 
     /**
-     * @Assert\Image(mimeTypes="image/jpeg")
-     * @Vich\UploadableField(mapping="product_image", fileNameProperty="filename")
-     * @var File|null
-     */
-    private $image;
-
-    /**
      * @ORM\Column(type="datetime")
+     * @Groups({"news_read"})
      */
     private $created_at;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="news")
+     * @Groups({"news_read"})
      */
     private $product;
 
@@ -59,12 +62,12 @@ class News
 
     public function getTitle(): ?string
     {
-        return $this->Title;
+        return $this->title;
     }
 
-    public function setTitle(string $Title): self
+    public function setTitle(string $title): self
     {
-        $this->Title = $Title;
+        $this->title = $title;
 
         return $this;
     }
@@ -77,18 +80,6 @@ class News
     public function setContent(string $content): self
     {
         $this->content = $content;
-
-        return $this;
-    }
-
-    public function getImage(): ?File
-    {
-        return $this->image;
-    }
-
-    public function setImage(?File $image = null): self
-    {
-        $this->image = $image;
 
         return $this;
     }

@@ -1,0 +1,23 @@
+{{ form_start(form, {"attr" : {"class": "m-auto"}}) }}
+<div class="row">
+    <div class="col-md-6">
+        {{ form_row(form.name, {"attr" : {"class": "form-control mb-2"}}) }}
+        {{ form_row(form.firstname, {"attr" : {"class": "form-control mb-2"}}) }}
+        {{ form_row(form.email, {"attr" : {"class": "form-control mb-2"}}) }}
+        {{ form_row(form.username, {"attr" : {"class": "form-control mb-2"}}) }}
+    </div>
+    <div class="col-md-6">
+        <h3>Choisissez votre avatar</h3>
+        <div class="avatar mb-5">
+            {% for avatar in avatars %}
+                <input type="radio" class="form-check-input mb-5" id="avatar{{ avatar.id }}"
+                       value="{{ avatar.id }}" name="imgProfil">
+                <label class="form-check-label" for="avatar{{ avatar.id }}">
+                    <img class="mb-5" src="../public/images/avatars/{{ avatar.name }}" alt="{{ avatar.name }}" width="70" height="70">
+                </label>
+            {% endfor %}
+        </div>
+    </div>
+    <button class="btn btn-success w-25" type="submit">Modifier le profile</button>
+</div>
+{{ form_end(form) }}

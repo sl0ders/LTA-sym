@@ -32,25 +32,17 @@
                         <tr>
                             <th scope="row" class="font-weight-bolder">Status</th>
                             <td>
-                                {% if user.status == "visiteur" %}
-                                    Visiteur
-                                {% elseif user.status == "Client" %}
-                                    Client(e)
-                                {% elseif user.status == "Administrateur" %}
-                                    Administrateur
-                                {% elseif user.status == "ban" %}
-                                    Utilisateur bannie
-                                {% endif %}
+                                {{ user.status }}
                             </td>
                         </tr>
                         <tr>
                             <th scope="row" class="font-weight-bolder">Votre avatar</th>
                             <td><img src="/images/{{ user.avatar }}" alt="imgProfile"></td>
                         </tr>
-                        {% if user.status == 'Client' or  user.status == 2 %}
+                        {% if user.status == 'Utilisateur' %}
                             <tr>
                                 <td>
-                                    <a href="{{ path('public_edit_user', {'name' : user.name}) }}">
+                                    <a href="{{ path('app_edit', {'id' : user.id}) }}">
                                         <button class="btn-success btn-sm">Modifier mon compte</button>
                                     </a>
                                 </td>

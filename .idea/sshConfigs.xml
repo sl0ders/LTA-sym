@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="PASSWORD" host="home756786028.1and1-data.host" id="ee4271e3-9883-4a65-ad3c-9fae0e598668" port="22" customName="LTA-sym" nameFormat="CUSTOM" />
+      <sshConfig authType="PASSWORD" host="home756786028.1and1-data.host" id="ac6a28a6-ecd5-4fb8-8ddd-6aaa476648e4" port="22" customName="LTA-sym" nameFormat="CUSTOM" />
+      <sshConfig authType="PASSWORD" host="home756786028.1and1-data.host" id="149861c9-1bf3-4082-a30e-df18e470cfc5" port="22" customName="LTA-sym" nameFormat="CUSTOM" />
+      <sshConfig authType="PASSWORD" host="home756786028.1and1-data.host" id="1723834c-dc1d-45c5-8332-af7a11a2dff7" port="22" customName="LTA-sym" nameFormat="CUSTOM" />
+      <sshConfig authType="PASSWORD" host="home756786028.1and1-data.host" id="d0ea6b82-6b43-4c98-9235-3328e737259c" port="22" customName="LTA-sym" nameFormat="CUSTOM" />
+      <sshConfig authType="PASSWORD" host="home756786028.1and1-data.host" id="78990b21-7cbd-4c17-adb4-4c2d2d453d1f" port="22" customName="LTA-sym" nameFormat="CUSTOM" />
+      <sshConfig authType="PASSWORD" host="home756786028.1and1-data.host" id="5e6a7381-adf7-44db-8912-fd70207dac6b" port="22" customName="LTA-sym" nameFormat="CUSTOM" />
+      <sshConfig authType="PASSWORD" host="home756786028.1and1-data.host" id="2c1cae67-ba8b-4b23-abb6-ff4fe492f3e0" port="22" customName="LTA-sym" nameFormat="CUSTOM" />
+      <sshConfig authType="PASSWORD" host="home756786028.1and1-data.host" id="ffd73151-1067-4dc9-a4e4-02f67cb897e0" port="22" customName="LTA-sym" nameFormat="CUSTOM" />
+    </configs>
+  </component>
+</project>
